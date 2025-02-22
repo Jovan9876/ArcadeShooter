@@ -11,9 +11,18 @@ public class Card : MonoBehaviour {
     }
 
     public int GetValue(int currentScore) {
-        if (rank == Rank.Ace) {
-            return (currentScore + 11 > 21) ? 1 : 11;
+        switch (rank) {
+            case Rank.Jack:
+                return 10;
+            case Rank.Queen:
+                return 10;
+            case Rank.King:
+                return 10;
+            case Rank.Ace:
+                return (currentScore + 11 > 21) ? 1 : 11;
+
+            default:
+                return (int)rank;
         }
-        return (int)rank;
     }
 }
