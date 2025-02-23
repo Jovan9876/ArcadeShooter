@@ -4,11 +4,12 @@ using UnityEngine;
 public class Deck : MonoBehaviour {
     [SerializeField] private List<GameObject> cardPrefabs;
     private Queue<Card> cards = new Queue<Card>();
+    private const int NEW_SHOE_THRESHOLD = 15;
 
     public void GenerateDeck() {
         cards.Clear();
         foreach (GameObject cardPrefab in cardPrefabs) {
-            GameObject cardObject = Instantiate(cardPrefab);
+            GameObject cardObject = Instantiate(cardPrefab, transform);
             Card card = cardObject.GetComponent<Card>();
             cards.Enqueue(card);
         }
@@ -31,6 +32,10 @@ public class Deck : MonoBehaviour {
 
     public Card BurnCard() {
         return cards.Dequeue();
+    }
+
+    public bool NeedsNewShoe() {
+        return cards.Count < NEW_SHOE_THRESHOLD;
     }
 
 }

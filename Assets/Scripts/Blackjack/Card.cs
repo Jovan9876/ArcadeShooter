@@ -19,7 +19,7 @@ public class Card : MonoBehaviour {
             case Rank.King:
                 return 10;
             case Rank.Ace:
-                return (currentScore + 11 > 21) ? 1 : 11;
+                return 11;
 
             default:
                 return (int)rank;
