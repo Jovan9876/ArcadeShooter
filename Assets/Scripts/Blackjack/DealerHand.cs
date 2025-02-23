@@ -20,6 +20,7 @@ public class DealerHand : MonoBehaviour, IHand {
         } else {
             card.transform.localRotation = Quaternion.Euler(180, 0, 0);
         }
+
     }
 
     public void FlipOver() {

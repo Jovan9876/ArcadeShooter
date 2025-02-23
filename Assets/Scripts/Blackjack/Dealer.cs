@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using System.Threading.Tasks;
 
 public class Dealer : BlackjackManager {
 
@@ -31,37 +32,39 @@ public class Dealer : BlackjackManager {
         Debug.Log($"Player Score After Hit: {playerHand.GetScore()}");
 
         if (playerHand.GetScore() > 21) {
-            HandleEndOfRound();
+            PlayerStand();
         }
     }
 
     private void HandleEndOfRound() {
-        DetermineWinner();
-        StartCoroutine(EndRound());
+        //StartCoroutine(EndRound());
 
-        //EndRound();
+        EndRound();
     }
 
     public void PlayerStand() {
-        dealerHand.FlipOver();
         PlayTurn();
     }
 
     public void PlayTurn() {
         DealerTurn();
+    }
+
+    async private Task DealerTurn() {
+        dealerHand.FlipOver();
+
+        while (dealerHand.GetScore() < 17 || (dealerHand.GetScore() == 17 && dealerHand.HasSoft17())) {
+            await Task.Delay(1000);
+            dealerHand.AddCard(deck.DrawCard(), false);
+        }
         HandleEndOfRound();
     }
 
-    private void DealerTurn() {
-        while (dealerHand.GetScore() < 17 || (dealerHand.GetScore() == 17 && dealerHand.HasSoft17())) {
-            dealerHand.AddCard(deck.DrawCard(), false);
-        }
-    }
-
-    private IEnumerator EndRound() {
+    async private Task EndRound() {
+        await Task.Delay(2000);
+        DetermineWinner();
+        await Task.Delay(1000);
         ClearHands();
-        yield return new WaitForSeconds(2f);
-
         HideUI();
         StartNewRound();
     }
@@ -89,6 +92,7 @@ public class Dealer : BlackjackManager {
         if (dealerHand.ShowingFaceOrAce()) {
             Debug.Log("DEALER SHOWING FACE CHECKING BJ");
             if (dealerHand.HasBlackjack()) {
+                dealerHand.FlipOver();
                 if (playerHand.HasBlackjack()) {
                     Debug.Log("Both BJ push");
                 } else {
@@ -100,7 +104,7 @@ public class Dealer : BlackjackManager {
         }
         if (playerHand.HasBlackjack()) {
             Debug.Log("Player BJ win!");
-            HandleEndOfRound();
+            PlayerStand();
         }
     }
 
