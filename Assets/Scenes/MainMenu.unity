@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &175594054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 175594056}
+  - component: {fileID: 175594055}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &175594055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175594054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b08374ea3bfde4081c00f076f26b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &175594056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175594054}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.575098, y: 6.0229125, z: 88.65845}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303974307
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +245,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 303974310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 175594055}
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Blackjack
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &303974310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +738,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 641058135}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 175594055}
+        m_TargetAssemblyTypeName: SceneManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GameScene
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &641058135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,8 +848,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 30,000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
-  m_sharedMaterial: {fileID: 7117136977681483697, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials:
   - {fileID: 7117136977681483697, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
   m_fontMaterial: {fileID: 0}
@@ -1042,8 +1110,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
-  m_sharedMaterial: {fileID: 7117136977681483697, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials:
   - {fileID: 7117136977681483697, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
   m_fontMaterial: {fileID: 0}
@@ -1336,8 +1404,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Blackjack
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
-  m_sharedMaterial: {fileID: 7117136977681483697, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials:
   - {fileID: 7117136977681483697, guid: d8209d585d5b0fd45a870d542453b42e, type: 2}
   m_fontMaterial: {fileID: 0}
@@ -1423,3 +1491,4 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 498284634}
   - {fileID: 1216459737}
+  - {fileID: 175594056}
