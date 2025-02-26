@@ -8,7 +8,7 @@ public class SpawnEnemy : MonoBehaviour
     public GameObject BasicEnemy;
     private static float minDistance = 10f;
     private static float maxDistance = 12f;
-    public static float spawnDelay = 2f;
+    public float spawnDelay = 6f;
     private float spawnTimer = 0f;
     Vector3 cameraPointOnFloor;
 
