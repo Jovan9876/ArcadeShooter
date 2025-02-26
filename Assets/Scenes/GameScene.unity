@@ -906,7 +906,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 02acc31a785ee5b4692163d742fbe3d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -950,7 +950,7 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0, b: 0, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -975,7 +975,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -1004,9 +1004,14 @@ MonoBehaviour:
   lineRenderer: {fileID: 1379657468}
   firePoint: {fileID: 1379657473}
   laserRange: 20
+  warningDuration: 1
+  trackingDuration: 0.5
   laserDuration: 2
   fireRate: 3
   laserDamage: 10
+  warningColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  laserColor: {r: 1, g: 0.119365565, b: 0, a: 1}
+  laserMaterial: {fileID: 0}
 --- !u!65 &1379657470
 BoxCollider:
   m_ObjectHideFlags: 0
