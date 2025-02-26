@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Blackjack.unity
+    path: Assets/Scenes/BlackJack.unity
     guid: b61885fa506c6f94692128b6e9586bc9
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
