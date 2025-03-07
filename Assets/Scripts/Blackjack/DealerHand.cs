@@ -10,30 +10,35 @@ public class DealerHand : MonoBehaviour, IHand {
 
         card.transform.SetParent(transform, true);
 
-        float offsetX = -60f * cards.Count;
-        float offsetY = -100f * cards.Count;
+        //float offsetX = -60f * cards.Count;
+        //float offsetY = -100f * cards.Count;
+        float offsetX = 0.06f * cards.Count;
+        float offsetY = 0.01f * cards.Count;
+        float offsetZ = 0.08f * cards.Count;
 
-        card.transform.localPosition = new Vector3(offsetX, offsetY, 0);
+
+
+        card.transform.localPosition = new Vector3(offsetX, offsetY, offsetZ);
 
         if (faceDown) {
-            card.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            card.transform.localRotation = Quaternion.Euler(90, 0, 0);
         } else {
-            card.transform.localRotation = Quaternion.Euler(180, 0, 0);
+            card.transform.localRotation = Quaternion.Euler(-90, 0, 0);
         }
 
     }
 
     public void FlipOver() {
-        cards[1].transform.localRotation = Quaternion.Euler(180, 0, 0);
+        cards[1].transform.localRotation = Quaternion.Euler(-90, 0, 0);
     }
 
-    public void ClearHand() {
-        foreach (Transform child in transform) {
-            Destroy(child.gameObject);
-        }
+    //public void ClearHand() {
+    //    foreach (Transform child in transform) {
+    //        Destroy(child.gameObject);
+    //    }
 
-        cards.Clear();
-    }
+    //    cards.Clear();
+    //}
 
     public int GetScore() {
         int score = 0;
