@@ -1,9 +1,24 @@
 fileFormatVersion: 2
-guid: 46cc7862cade04843a23b8e08ea4818e
+guid: a1d0307a3c684ec4e904a20bd80cf9b5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leg
+    second: {fileID: 2100000, guid: 9160755b48da0fa408360cd9c0626b46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leg.001
+    second: {fileID: 2100000, guid: 9160755b48da0fa408360cd9c0626b46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlayArea
+    second: {fileID: 2100000, guid: 2673eb9d69e89b743b0532a4fa61af76, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

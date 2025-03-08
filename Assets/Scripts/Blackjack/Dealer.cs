@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 using System.Threading.Tasks;
+using static UnityEngine.Rendering.GPUSort;
+using System;
+using System.Collections.Generic;
 
 public class Dealer : BlackjackManager {
 
@@ -11,9 +14,15 @@ public class Dealer : BlackjackManager {
     }
 
     private void StartNewShoe() {
-        ClearHands();
+        //ClearHands();
+        ClearDiscardPile();
 
-        deck.BurnCard();
+        Card burnCard = deck.BurnCard();
+        burnCard.transform.SetParent(discardPile.transform, false);
+        burnCard.transform.localPosition = new Vector3(0, 0, 0);
+        burnCard.transform.localRotation = Quaternion.Euler(90, 0, 0);
+        burnCard.transform.localScale = new Vector3(5f, 5f, 5f);
+
 
         playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), false);
@@ -65,14 +74,52 @@ public class Dealer : BlackjackManager {
         DetermineWinner();
         await Task.Delay(1000);
         ClearHands();
-        HideUI();
+        //HideUI();
         StartNewRound();
     }
 
     private void ClearHands() {
-        dealerHand.ClearHand();
-        playerHand.ClearHand();
+        // Clear Player's Hand
+        List<Transform> playerChildren = new List<Transform>();
+        foreach (Transform child in playerHand.transform) {
+            playerChildren.Add(child);
+        }
+        foreach (Transform child in playerChildren) {
+            float offsetY = 0.01f * discardPile.transform.childCount;
+            child.SetParent(discardPile.transform, false);
+            child.localPosition = new Vector3(0, offsetY, 0);
+            child.localRotation = Quaternion.Euler(90, 0, 0);
+            child.localScale = new Vector3(5f, 5f, 5f);
+        }
+        playerHand.cards.Clear();
+
+        // Clear Dealer's Hand
+        List<Transform> dealerChildren = new List<Transform>();
+        foreach (Transform child in dealerHand.transform) {
+            dealerChildren.Add(child);
+        }
+        foreach (Transform child in dealerChildren) {
+            float offsetY = 0.01f * discardPile.transform.childCount;
+            child.SetParent(discardPile.transform, false);
+            child.localPosition = new Vector3(0, offsetY, 0);
+            child.localRotation = Quaternion.Euler(90, 0, 0);
+            child.localScale = new Vector3(5f, 5f, 5f);
+        }
+        dealerHand.cards.Clear();
     }
+
+    private void ClearDiscardPile() {
+        List<Transform> discardChildren = new List<Transform>();
+        foreach (Transform child in discardPile.transform) {
+            discardChildren.Add(child);
+        }
+        foreach (Transform child in discardChildren) {
+            Destroy(child.gameObject);
+        }
+    }
+
+
+
 
     private void StartNewRound() {
 

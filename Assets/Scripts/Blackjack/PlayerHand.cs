@@ -9,20 +9,24 @@ public class PlayerHand : MonoBehaviour, IHand {
 
         card.transform.SetParent(transform, true);
 
-        float offsetX = 60f * cards.Count;
-        float offsetY = 100f * cards.Count;
+        //float offsetX = 60f * cards.Count;
+        //float offsetY = 100f * cards.Count;
+        float offsetX = 0.1f * cards.Count;
+        float offsetY = 0.01f * cards.Count;
+        float offsetZ = 0.1f * cards.Count;
 
-        card.transform.localPosition = new Vector3(offsetX, offsetY, 0);
-        card.transform.localRotation = Quaternion.Euler(180, 0, 0);
+        card.transform.localRotation = Quaternion.Euler(-90, 0, 0);
+        card.transform.localPosition = new Vector3(offsetX, offsetY, offsetZ);
+        //card.transform.localRotation = Quaternion.Euler(180, 0, 0);
 
     }
 
-    public void ClearHand() {
-        foreach (Transform child in transform) {
-            Destroy(child.gameObject);
-        }
-        cards.Clear();
-    }
+    //public void ClearHand() {
+    //    foreach (Transform child in transform) {
+    //        Destroy(child.gameObject);
+    //    }
+    //    cards.Clear();
+    //}
 
     public int GetScore() {
         int score = 0;
