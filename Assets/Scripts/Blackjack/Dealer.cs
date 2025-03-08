@@ -78,26 +78,6 @@ public class Dealer : BlackjackManager {
         StartNewRound();
     }
 
-    //private void ClearHands() {
-    //    // Clear Player
-    //    foreach (Transform child in playerHand.transform) {
-    //        float offsetZ = 0.01f * discardPile.transform.childCount;
-    //        Console.WriteLine("1");
-    //        child.transform.SetParent(discardPile.transform, false);
-    //        child.transform.localPosition = new Vector3(0, 0, offsetZ);
-    //        child.transform.localRotation = Quaternion.Euler(90, 0, 0);
-    //    }
-    //    playerHand.cards.Clear();
-
-    //    foreach (Transform child in dealerHand.transform) {
-    //        float offsetZ = 0.01f * discardPile.transform.childCount;
-    //        child.transform.SetParent(discardPile.transform, false);
-    //        child.transform.localPosition = new Vector3(0, 0, offsetZ);
-    //        child.transform.localRotation = Quaternion.Euler(90, 0, 0);
-    //    }
-    //    dealerHand.cards.Clear();
-    //}
-
     private void ClearHands() {
         // Clear Player's Hand
         List<Transform> playerChildren = new List<Transform>();

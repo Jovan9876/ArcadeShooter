@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Leg.001
-    second: {fileID: 2100000, guid: ef6947a4a9e0ec340b5d85e42bf0a3e2, type: 2}
+    second: {fileID: 2100000, guid: 9160755b48da0fa408360cd9c0626b46, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
