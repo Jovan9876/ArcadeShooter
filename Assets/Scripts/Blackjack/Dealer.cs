@@ -8,13 +8,31 @@ using System.Collections.Generic;
 
 public class Dealer : BlackjackManager {
 
-    private void Start() {
-        NewDeck();
-        StartNewShoe();
+    private bool newShoe = true;
+
+    //private void Start() {
+    //    NewDeck();
+    //    StartNewShoe();
+    //}
+
+    public void DealCards() {
+        if (!player.HasPlacedBet()) {
+            Debug.Log("You must place a bet before dealing.");
+            return;
+        }
+
+        gameStarted = true;
+        if (newShoe) { 
+            NewDeck();
+            StartNewShoe();
+        } else {
+            StartNewRound();
+        }
     }
 
     private void StartNewShoe() {
         //ClearHands();
+        newShoe = false;
         ClearDiscardPile();
 
         Card burnCard = deck.BurnCard();
@@ -118,7 +136,11 @@ public class Dealer : BlackjackManager {
         }
     }
 
-
+    public void StartBettingPhase() {
+        gameStarted = false;
+        player.ResetBet();
+        Debug.Log("Place your bets before dealing.");
+    }
 
 
     private void StartNewRound() {

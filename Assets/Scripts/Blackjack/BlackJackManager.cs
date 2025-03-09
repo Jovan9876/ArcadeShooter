@@ -3,19 +3,29 @@ using UnityEngine;
 public class BlackjackManager : MonoBehaviour {
     [SerializeField] protected Deck deck;
     [SerializeField] protected GameObject discardPile;
+    [SerializeField] protected Player player;
     [SerializeField] protected PlayerHand playerHand;
     [SerializeField] protected DealerHand dealerHand;
 
-    //[SerializeField] private TMPro.TMP_Text dealerWins;
-    //[SerializeField] private TMPro.TMP_Text dealerBusts;
-    //[SerializeField] private TMPro.TMP_Text playerWins;
-    //[SerializeField] private TMPro.TMP_Text playerBusts;
-    //[SerializeField] private TMPro.TMP_Text playerBJ;
-    //[SerializeField] private TMPro.TMP_Text push;
+    protected bool gameStarted = false;
+    private int[] chipValues = { 5, 25, 100, 500, 1000 };
 
     protected void NewDeck() {
         deck.GenerateDeck();
         deck.Shuffle();
+    }
+
+    protected void StartBettingPhase() {
+        gameStarted = false;
+        player.ResetBet();
+        Debug.Log("Place your bets before dealing.");
+    }
+
+    public void PlaceBet(int chipIndex) {
+        if (gameStarted) return;
+        int chipValue = chipValues[chipIndex];
+        Debug.Log($"Placing bet {chipValue}");
+        player.PlaceBet(chipValue);
     }
 
     protected void DetermineWinner() {
