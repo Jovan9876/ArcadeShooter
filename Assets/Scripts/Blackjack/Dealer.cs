@@ -16,11 +16,6 @@ public class Dealer : BlackjackManager {
     //}
 
     public void DealCards() {
-        if (!player.HasPlacedBet()) {
-            Debug.Log("You must place a bet before dealing.");
-            return;
-        }
-
         gameStarted = true;
         if (newShoe) { 
             NewDeck();

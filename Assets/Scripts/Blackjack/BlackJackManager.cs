@@ -8,7 +8,7 @@ public class BlackjackManager : MonoBehaviour {
     [SerializeField] protected DealerHand dealerHand;
 
     protected bool gameStarted = false;
-    private int[] chipValues = { 5, 25, 100, 500, 1000 };
+    //private int[] chipValues = { 5, 25, 100, 500, 1000 };
 
     protected void NewDeck() {
         deck.GenerateDeck();
@@ -21,12 +21,12 @@ public class BlackjackManager : MonoBehaviour {
         Debug.Log("Place your bets before dealing.");
     }
 
-    public void PlaceBet(int chipIndex) {
-        if (gameStarted) return;
-        int chipValue = chipValues[chipIndex];
-        Debug.Log($"Placing bet {chipValue}");
-        player.PlaceBet(chipValue);
-    }
+    //public void PlaceBet(int chipIndex) {
+    //    if (gameStarted) return;
+    //    int chipValue = chipValues[chipIndex];
+    //    Debug.Log($"Placing bet {chipValue}");
+    //    player.PlaceBet(chipValue);
+    //}
 
     protected void DetermineWinner() {
         int playerScore = playerHand.GetScore();
