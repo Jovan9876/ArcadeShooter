@@ -5,19 +5,16 @@ using System.Threading.Tasks;
 using static UnityEngine.Rendering.GPUSort;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Dealer : BlackjackManager {
 
+    private List<GameObject> winningChips = new List<GameObject>();
     private bool newShoe = true;
-
-    //private void Start() {
-    //    NewDeck();
-    //    StartNewShoe();
-    //}
 
     public void DealCards() {
         gameStarted = true;
-        if (newShoe) { 
+        if (newShoe) {
             NewDeck();
             StartNewShoe();
         } else {
@@ -26,7 +23,6 @@ public class Dealer : BlackjackManager {
     }
 
     private void StartNewShoe() {
-        //ClearHands();
         newShoe = false;
         ClearDiscardPile();
 
@@ -58,18 +54,16 @@ public class Dealer : BlackjackManager {
         }
     }
 
-    private void HandleEndOfRound() {
-        //StartCoroutine(EndRound());
-
-        EndRound();
+    async private Task HandleEndOfRound() {
+        await EndRound();
     }
 
-    public void PlayerStand() {
-        PlayTurn();
+    async public Task PlayerStand() {
+        await PlayTurn();
     }
 
-    public void PlayTurn() {
-        DealerTurn();
+    async public Task PlayTurn() {
+        await DealerTurn();
     }
 
     async private Task DealerTurn() {
@@ -83,13 +77,79 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task EndRound() {
-        await Task.Delay(2000);
-        DetermineWinner();
-        await Task.Delay(1000);
-        ClearHands();
-        //HideUI();
-        StartNewRound();
+        float multiplier = DetermineWinner();
+        await Task.Delay(1500);
+
+        if (multiplier == 0f) {
+            PlayerLose();
+        } else if (multiplier == 1f) {
+            PlayerPush();
+        } else if (multiplier == 2f) {
+            PlayerWin(multiplier);
+        } else if (multiplier == 2.5f) {
+            PlayerWin(multiplier);
+        }
+
     }
+
+    private void ClearChips() {
+        foreach (GameObject chip in player.placedChips) {
+            Destroy(chip);
+        }
+        player.placedChips.Clear();
+
+        foreach (GameObject chip in winningChips) {
+            Destroy(chip);
+        }
+        winningChips.Clear();
+    }
+
+    async public Task PlayerWin(float multiplier) {
+
+        PlaceWinningChips(multiplier);
+        player.WinBet(multiplier);
+        await Task.Delay(1000);
+        ClearChips();
+        ClearHands();
+
+    }
+
+    async public Task PlayerLose() {
+        await Task.Delay(1000);
+        ClearChips();
+        ClearHands();
+        player.LoseBet();
+    }
+
+    async public Task PlayerPush() {
+        await Task.Delay(1000);
+        ClearChips();
+        ClearHands();
+        player.PushBet();
+    }
+
+    protected void PlaceWinningChips(float multiplier) {
+
+        foreach (GameObject chip in player.placedChips) {
+            int chipValue = chip.GetComponent<Chip>().chipValue;
+            int totalChipsToPlace = Mathf.RoundToInt(multiplier - 1);
+
+            for (int i = 0; i < totalChipsToPlace; i++) {
+                GameObject winningChip = Instantiate(chip, player.bettingArea.transform, false);
+                winningChip.transform.localPosition = new Vector3(0.3f, chip.transform.localPosition.y + 0.02f, 0f);
+                winningChip.transform.localRotation = Quaternion.Euler(90, 0, 0);
+
+                Chip chipComponent = winningChip.GetComponent<Chip>();
+                if (chipComponent != null) {
+                    chipComponent.chipValue = chipValue;
+                }
+
+                winningChips.Add(winningChip);
+
+            }
+        }
+    }
+
 
     private void ClearHands() {
         // Clear Player's Hand

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BlackjackManager : MonoBehaviour {
     [SerializeField] protected Deck deck;
@@ -6,9 +6,14 @@ public class BlackjackManager : MonoBehaviour {
     [SerializeField] protected Player player;
     [SerializeField] protected PlayerHand playerHand;
     [SerializeField] protected DealerHand dealerHand;
+    private Dealer dealer;
+
 
     protected bool gameStarted = false;
-    //private int[] chipValues = { 5, 25, 100, 500, 1000 };
+
+    private void Awake() {
+        dealer = GetComponent<Dealer>();
+    }
 
     protected void NewDeck() {
         deck.GenerateDeck();
@@ -21,42 +26,37 @@ public class BlackjackManager : MonoBehaviour {
         Debug.Log("Place your bets before dealing.");
     }
 
-    //public void PlaceBet(int chipIndex) {
-    //    if (gameStarted) return;
-    //    int chipValue = chipValues[chipIndex];
-    //    Debug.Log($"Placing bet {chipValue}");
-    //    player.PlaceBet(chipValue);
-    //}
-
-    protected void DetermineWinner() {
+    protected float DetermineWinner() {
         int playerScore = playerHand.GetScore();
         int dealerScore = dealerHand.GetScore();
 
         Debug.Log($"Player Final Score: {playerScore}");
         Debug.Log($"Dealer Final Score: {dealerScore}");
 
-        //if (playerHand.cards.Count == 2 && playerScore == 21) {
-        //    playerBJ.transform.gameObject.SetActive(true);
-        //} else if (playerScore > 21) {
-        //    playerBusts.transform.gameObject.SetActive(true);
-        //} else if (dealerScore > 21) {
-        //    dealerBusts.transform.gameObject.SetActive(true);
-        //} else if (playerScore > dealerScore) {
-        //    playerWins.transform.gameObject.SetActive(true);
-        //} else if (dealerScore > playerScore) {
-        //    dealerWins.transform.gameObject.SetActive(true);
-        //} else {
-        //    push.transform.gameObject.SetActive(true);
-        //}
+        if (playerHand.HasBlackjack() && !dealerHand.HasBlackjack()) {
+            // Player wins with Blackjack 2.5x payout
+            Debug.Log("Player wins with Blackjack!");
+            return 2.5f;
+        } else if (playerScore > 21) {
+            // Player busts Player loses bet
+            Debug.Log("Player busts, dealer wins.");
+            return 0;
+        } else if (dealerScore > 21) {
+            // Dealer busts Player wins 2x payout
+            Debug.Log("Dealer busts, player wins!");
+            return 2.0f;
+        } else if (playerScore > dealerScore) {
+            // Player wins 2x payout
+            Debug.Log("Player wins!");
+            return 2.0f;
+        } else if (dealerScore > playerScore) {
+            Debug.Log("Dealer wins.");
+            return 0f;
+        } else {
+            // Push (Tie) Bet is returned
+            Debug.Log("It's a push! Player gets their bet back.");
+            return 1f;
+        }
     }
-
-    //protected void HideUI() {
-    //    playerBusts.transform.gameObject.SetActive(false);
-    //    dealerBusts.transform.gameObject.SetActive(false);
-    //    playerWins.transform.gameObject.SetActive(false);
-    //    dealerWins.transform.gameObject.SetActive(false);
-    //    push.transform.gameObject.SetActive(false);
-    //    playerBJ.transform.gameObject.SetActive(false);
-    //}
 
 }

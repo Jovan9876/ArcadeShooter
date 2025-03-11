@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using System.Threading.Tasks;
 
 public class Player : MonoBehaviour {
     [SerializeField] private PlayerHand playerHand;
     [SerializeField] private Dealer dealer;
     [SerializeField] private UIManager manager;
-    [SerializeField] private GameObject bettingArea;
+    [SerializeField] public GameObject bettingArea;
 
 
     private int balance = 0;
@@ -16,15 +17,25 @@ public class Player : MonoBehaviour {
     private const string BALANCE_KEY = "Player_Currency";
 
     [SerializeField] private GameObject[] chipPrefabs;
-    private List<GameObject> placedChips = new List<GameObject>();
+    public List<GameObject> placedChips = new List<GameObject>();
 
 
     private void Start() {
         LoadBalance();
     }
 
+    private void Update() {
+        manager.UpdatePlayerBalance(balance);
+        manager.UpdateBetAmount(currentBet);
+        if (currentBet <= 0) {
+            betPlaced = false;
+        } else {
+            betPlaced = true;
+        }
+    }
+
     private void LoadBalance() {
-        balance = PlayerPrefs.GetInt(BALANCE_KEY, 100000);
+        balance = PlayerPrefs.GetInt(BALANCE_KEY, 10000);
         Debug.Log($"Loaded Balance: {balance}");
     }
 
@@ -39,7 +50,7 @@ public class Player : MonoBehaviour {
             Debug.Log("Not enough balance to place bet.");
             return;
         }
-        betPlaced = true;
+        //betPlaced = true;
         currentBet += chipValue;
         balance -= chipValue;
         PlaceBetOnTable(chip);
@@ -104,21 +115,34 @@ public class Player : MonoBehaviour {
         return betPlaced;
     }
 
-    public void ResetBet() {
-        betPlaced = false;
+    async public Task ResetBet() {
+        await Task.Delay(1000);
         currentBet = 0;
+        manager.ShowBettingUI();
     }
 
-    public void WinBet(float multiplier) {
+    async public void WinBet(float multiplier) {
         int winnings = Mathf.RoundToInt(currentBet * multiplier);
+        currentBet = winnings;
         balance += winnings;
         SaveBalance();
         Debug.Log($"Player won {winnings}. New balance: {balance}");
+        await ResetBet();
     }
 
-    public void LoseBet() {
+    async public void LoseBet() {
         Debug.Log($"Player lost {currentBet}. New balance: {balance}");
         SaveBalance();
+        await ResetBet();
+    }
+
+    async public void PushBet() {
+
+        balance += currentBet;
+        SaveBalance();
+        Debug.Log($"Push! Bet returned. New balance: {balance}");
+
+        await ResetBet();
     }
 
     public void Deal() {
