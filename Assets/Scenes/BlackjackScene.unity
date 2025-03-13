@@ -1658,6 +1658,7 @@ MonoBehaviour:
   player: {fileID: 1659065111}
   playerHand: {fileID: 1614877453}
   dealerHand: {fileID: 1563749928}
+  playerStand: 0
 --- !u!1 &193518586
 GameObject:
   m_ObjectHideFlags: 0
@@ -3617,6 +3618,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &392971987 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8383575639116175261, guid: f65f1686a73dd7149929202972134bce, type: 3}
+  m_PrefabInstance: {fileID: 1657925884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &406226533
 GameObject:
   m_ObjectHideFlags: 0
@@ -6996,6 +7002,33 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &766877855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5341326232726627532, guid: f65f1686a73dd7149929202972134bce, type: 3}
+  m_PrefabInstance: {fileID: 1657925884}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &766877859
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766877855}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 73c54d6ed05332646bfb45a3e5a7d238, type: 3}
 --- !u!43 &770232998
 Mesh:
   m_ObjectHideFlags: 0
@@ -14916,6 +14949,7 @@ MonoBehaviour:
   betAmount: {fileID: 1096321276}
   playerBalance: {fileID: 256567274}
   gameplayPanel: {fileID: 1986106568}
+  doubleDownButton: {fileID: 392971987}
 --- !u!4 &1529141922
 Transform:
   m_ObjectHideFlags: 0
@@ -16487,13 +16521,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8383575639116175261, guid: f65f1686a73dd7149929202972134bce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1657925886}
+    - targetCorrespondingSourceObject: {fileID: 5341326232726627532, guid: f65f1686a73dd7149929202972134bce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 766877859}
   m_SourcePrefab: {fileID: 100100000, guid: f65f1686a73dd7149929202972134bce, type: 3}
 --- !u!4 &1657925885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9156839543365897511, guid: f65f1686a73dd7149929202972134bce, type: 3}
   m_PrefabInstance: {fileID: 1657925884}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1657925886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392971987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1659065111}
+          m_TargetAssemblyTypeName: Player, Assembly-CSharp
+          m_MethodName: DoubleDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1659065110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16670,6 +16739,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1446854102}
+    - target: {fileID: 3171463835866791006, guid: e8d90888b2064194b8b180d4716dbe50, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 3208547858850978412, guid: e8d90888b2064194b8b180d4716dbe50, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -16854,6 +16927,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 232229956}
+    - target: {fileID: 6930549916795121297, guid: e8d90888b2064194b8b180d4716dbe50, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 7108425836989564120, guid: e8d90888b2064194b8b180d4716dbe50, type: 3}
       propertyPath: m_Mesh
       value: 

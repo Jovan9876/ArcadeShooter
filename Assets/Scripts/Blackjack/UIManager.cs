@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour {
 
     [Header("Gameplay UI")]
     [SerializeField] private GameObject gameplayPanel; // Hit, Stand, Double Down, Split buttons
+    [SerializeField] private GameObject doubleDownButton;
 
 
     private void Start() {
@@ -39,4 +40,7 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    public void ToggleDoubleDown(bool show) {
+        doubleDownButton.SetActive(show);
+    }
 }

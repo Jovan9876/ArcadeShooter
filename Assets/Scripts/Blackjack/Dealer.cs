@@ -11,6 +11,8 @@ public class Dealer : BlackjackManager {
 
     private List<GameObject> winningChips = new List<GameObject>();
     private bool newShoe = true;
+    public bool playerStand = false;
+
 
     public void DealCards() {
         gameStarted = true;
@@ -43,9 +45,14 @@ public class Dealer : BlackjackManager {
 
 
     public void PlayerHit() {
-        Card drawnCard = deck.DrawCard();
+        if (!gameStarted) return;
+        if (playerHand.GetScore() >= 21) return;
+        if (playerStand) return;
 
+
+        Card drawnCard = deck.DrawCard();
         playerHand.AddCard(drawnCard, false);
+
         Debug.Log($"Player drew: {drawnCard.rank} of {drawnCard.suit}");
         Debug.Log($"Player Score After Hit: {playerHand.GetScore()}");
 
@@ -53,14 +60,29 @@ public class Dealer : BlackjackManager {
             PlayerStand();
         }
     }
+    async public Task PlayerStand() {
+        if (playerStand) return;
+        playerStand = true;
+        await PlayTurn();
+    }
+
+    async public Task PlayerDouble() {
+        if (!gameStarted) return;
+
+        Card drawnCard = deck.DrawCard();
+        playerHand.AddLastCard(drawnCard);
+
+        Debug.Log($"Player doubled down and drew: {drawnCard.rank} of {drawnCard.suit}");
+        Debug.Log($"Player Score After Double: {playerHand.GetScore()}");
+
+        await PlayerStand();
+    }
 
     async private Task HandleEndOfRound() {
         await EndRound();
+        playerStand = false;
     }
 
-    async public Task PlayerStand() {
-        await PlayTurn();
-    }
 
     async public Task PlayTurn() {
         await DealerTurn();
@@ -73,7 +95,7 @@ public class Dealer : BlackjackManager {
             await Task.Delay(1000);
             dealerHand.AddCard(deck.DrawCard(), false);
         }
-        HandleEndOfRound();
+        await HandleEndOfRound();
     }
 
     async private Task EndRound() {
@@ -81,18 +103,18 @@ public class Dealer : BlackjackManager {
         await Task.Delay(1500);
 
         if (multiplier == 0f) {
-            PlayerLose();
+            await PlayerLose();
         } else if (multiplier == 1f) {
-            PlayerPush();
+            await PlayerPush();
         } else if (multiplier == 2f) {
-            PlayerWin(multiplier);
+            await PlayerWin(multiplier);
         } else if (multiplier == 2.5f) {
-            PlayerWin(multiplier);
+            await PlayerWin(multiplier);
         }
 
     }
 
-    private void ClearChips() {
+    async private Task ClearChips() {
         foreach (GameObject chip in player.placedChips) {
             Destroy(chip);
         }
@@ -109,35 +131,39 @@ public class Dealer : BlackjackManager {
         PlaceWinningChips(multiplier);
         player.WinBet(multiplier);
         await Task.Delay(1000);
-        ClearChips();
-        ClearHands();
+        await ClearChips();
+        await ClearHands();
 
     }
 
     async public Task PlayerLose() {
         await Task.Delay(1000);
-        ClearChips();
-        ClearHands();
+        await ClearChips();
+        await ClearHands();
         player.LoseBet();
     }
 
     async public Task PlayerPush() {
         await Task.Delay(1000);
-        ClearChips();
-        ClearHands();
+        await ClearChips();
+        await ClearHands();
         player.PushBet();
     }
 
     protected void PlaceWinningChips(float multiplier) {
 
-        foreach (GameObject chip in player.placedChips) {
+        List<GameObject> allBetChips = new List<GameObject>(player.placedChips); // Include original and double-down chips
+
+        foreach (GameObject chip in allBetChips) {
             int chipValue = chip.GetComponent<Chip>().chipValue;
-            int totalChipsToPlace = Mathf.RoundToInt(multiplier - 1);
+            int totalChipsToPlace = Mathf.RoundToInt(multiplier - 1); // Calculate extra chips to place
 
             for (int i = 0; i < totalChipsToPlace; i++) {
                 GameObject winningChip = Instantiate(chip, player.bettingArea.transform, false);
-                winningChip.transform.localPosition = new Vector3(0.3f, chip.transform.localPosition.y + 0.02f, 0f);
-                winningChip.transform.localRotation = Quaternion.Euler(90, 0, 0);
+
+                // Position the winning chips beside the original and double-down chips
+                winningChip.transform.localPosition = chip.transform.localPosition + new Vector3(0.3f, 0, 0);
+                winningChip.transform.localRotation = chip.transform.localRotation;
 
                 Chip chipComponent = winningChip.GetComponent<Chip>();
                 if (chipComponent != null) {
@@ -145,13 +171,13 @@ public class Dealer : BlackjackManager {
                 }
 
                 winningChips.Add(winningChip);
-
             }
         }
+
     }
 
 
-    private void ClearHands() {
+    async private Task ClearHands() {
         // Clear Player's Hand
         List<Transform> playerChildren = new List<Transform>();
         foreach (Transform child in playerHand.transform) {

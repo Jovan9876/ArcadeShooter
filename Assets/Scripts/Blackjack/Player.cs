@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour {
     [SerializeField] private PlayerHand playerHand;
@@ -154,17 +155,57 @@ public class Player : MonoBehaviour {
         SaveBalanceAfterDeal();
         dealer.DealCards();
         Debug.Log("Dealing cards...");
+        UpdateDoubleDownButton();
     }
 
     public void Hit() {
-        if (playerHand.GetScore() >= 21) {
-            Stand();
-        } else {
-            dealer.PlayerHit();
-        }
+        if (!betPlaced) return;
+        if (dealer.playerStand) return;
+        if (playerHand.GetScore() >= 21) Stand();
+        dealer.PlayerHit();
+        UpdateDoubleDownButton();
     }
 
     public void Stand() {
         dealer.PlayerStand();
     }
+
+    public void DoubleDown() {
+        if (dealer.playerStand) return;
+
+        if (balance >= currentBet && playerHand.cards.Count == 2) {
+            balance -= currentBet;
+            currentBet *= 2;
+            SaveBalance();
+            PlaceDoubleDownChips();
+            dealer.PlayerDouble();
+            UpdateDoubleDownButton();
+        }
+
+    }
+
+    private void PlaceDoubleDownChips() {
+        List<GameObject> originalChips = new List<GameObject>(placedChips); // Store original chips separately
+
+        foreach (GameObject chip in originalChips) {
+            GameObject chipInstance = Instantiate(chipPrefabs[chip.GetComponent<Chip>().chipIndex], bettingArea.transform, false);
+            Destroy(chipInstance.GetComponentInChildren<UniversalAdditionalLightData>());
+            Destroy(chipInstance.GetComponentInChildren<Light>());
+
+            // Place behind the original chip
+            chipInstance.transform.localPosition = chip.transform.localPosition + new Vector3(0, 0, -0.23f);
+            chipInstance.transform.localRotation = chip.transform.localRotation;
+
+            placedChips.Add(chipInstance);
+        }
+
+        //ReorderChips();
+    }
+
+
+    public void UpdateDoubleDownButton() {
+        manager.ToggleDoubleDown(playerHand.cards.Count == 2);
+    }
+
+
 }
