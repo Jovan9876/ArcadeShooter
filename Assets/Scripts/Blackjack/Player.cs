@@ -151,6 +151,11 @@ public class Player : MonoBehaviour {
             Debug.Log("You must place a bet before dealing.");
             return;
         }
+
+        foreach (GameObject chip in placedChips) {
+            chip.GetComponent<Chip>().IsBet = true;
+        }
+
         manager.ShowGameplayUI();
         SaveBalanceAfterDeal();
         dealer.DealCards();

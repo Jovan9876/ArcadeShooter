@@ -25,11 +25,11 @@ Transform:
   m_GameObject: {fileID: 3663954199373787689}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.05700016, y: 1.0950001, z: -0.27799988}
+  m_LocalPosition: {x: 0, y: 0, z: -0.27799988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 369078581680087504}
+  m_Father: {fileID: 4633253145753036243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4499873017375195808
 GameObject:
@@ -61,7 +61,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 892153424650172188}
   - {fileID: 4633253145753036243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -89,6 +88,7 @@ MonoBehaviour:
   - {fileID: 6207109010081916145, guid: 55c590ca98cabf442b3b1820efee183d, type: 3}
   - {fileID: 4215942198767195469, guid: 9f4a79e69b00d01478c5bbad5fbf5e9d, type: 3}
   - {fileID: 7532074479660523486, guid: dd6ca4f8d12842e47baeb9c104e71716, type: 3}
+  placedChips: []
 --- !u!1 &4757517693652643349
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +118,8 @@ Transform:
   m_LocalPosition: {x: -0.057, y: 1.095, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 892153424650172188}
   m_Father: {fileID: 369078581680087504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3921675459230565717

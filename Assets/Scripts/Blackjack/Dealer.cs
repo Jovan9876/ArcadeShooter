@@ -181,7 +181,9 @@ public class Dealer : BlackjackManager {
         // Clear Player's Hand
         List<Transform> playerChildren = new List<Transform>();
         foreach (Transform child in playerHand.transform) {
-            playerChildren.Add(child);
+            if (child.name != "Bet") {
+                playerChildren.Add(child);
+            }
         }
         foreach (Transform child in playerChildren) {
             float offsetY = 0.01f * discardPile.transform.childCount;
