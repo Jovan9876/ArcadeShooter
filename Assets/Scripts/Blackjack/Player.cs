@@ -199,7 +199,6 @@ public class Player : MonoBehaviour {
             placedChips.Add(chipInstance);
         }
 
-        //ReorderChips();
     }
 
 
