@@ -24,10 +24,10 @@ public class Dealer : BlackjackManager {
         }
     }
 
-    private void StartNewShoe() {
+    async private Task StartNewShoe() {
         newShoe = false;
-        ClearDiscardPile();
-
+        await ClearHands();
+        await ClearDiscardPile();
         Card burnCard = deck.BurnCard();
         burnCard.transform.SetParent(discardPile.transform, false);
         burnCard.transform.localPosition = new Vector3(0, 0, 0);
@@ -207,7 +207,7 @@ public class Dealer : BlackjackManager {
         dealerHand.cards.Clear();
     }
 
-    private void ClearDiscardPile() {
+    async private Task ClearDiscardPile() {
         List<Transform> discardChildren = new List<Transform>();
         foreach (Transform child in discardPile.transform) {
             discardChildren.Add(child);
@@ -229,6 +229,7 @@ public class Dealer : BlackjackManager {
         if (deck.NeedsNewShoe()) {
             NewDeck();
             StartNewShoe();
+            return;
         }
 
         playerHand.AddCard(deck.DrawCard(), false);
