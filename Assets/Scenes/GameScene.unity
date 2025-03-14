@@ -2402,7 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bd3c21d77185a47aad4f46fed901dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicEnemy: {fileID: 919132149155446097, guid: 9d421916ff001b54198d238c48171f59, type: 3}
+  BasicEnemy: {fileID: 8650319563276257308, guid: 9888f399080e2ba4fbc1e3a1b0e711b2, type: 3}
   spawnDelay: 6
 --- !u!4 &1331433728
 Transform:
