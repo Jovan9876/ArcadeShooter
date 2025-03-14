@@ -1447,6 +1447,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
@@ -2402,7 +2406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43bd3c21d77185a47aad4f46fed901dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicEnemy: {fileID: 8650319563276257308, guid: 9888f399080e2ba4fbc1e3a1b0e711b2, type: 3}
+  BasicEnemy: {fileID: 5564876546837247171, guid: 6a659b733e4e39d49908486223beba74, type: 3}
   spawnDelay: 6
 --- !u!4 &1331433728
 Transform:
