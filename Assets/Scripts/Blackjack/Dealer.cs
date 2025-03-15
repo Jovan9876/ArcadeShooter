@@ -6,6 +6,7 @@ using static UnityEngine.Rendering.GPUSort;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.XR;
 
 public class Dealer : BlackjackManager {
 
@@ -35,30 +36,44 @@ public class Dealer : BlackjackManager {
         burnCard.transform.localScale = new Vector3(5f, 5f, 5f);
 
 
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), false);
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), true);
 
         CheckBlackjack();
     }
 
 
-    public void PlayerHit() {
-        if (!gameStarted) return;
-        if (playerHand.GetScore() >= 21) return;
-        if (playerStand) return;
+    public void PlayerHit(PlayerHand currentHand) {
+        //if (!gameStarted) return;
+        //if (playerHand.GetScore() >= 21) return;
+        //if (playerStand) return;
 
+
+        //Card drawnCard = deck.DrawCard();
+        //playerHand.AddCard(drawnCard, false);
+
+        //Debug.Log($"Player drew: {drawnCard.rank} of {drawnCard.suit}");
+        //Debug.Log($"Player Score After Hit: {playerHand.GetScore()}");
+
+        //if (playerHand.GetScore() > 21) {
+        //    PlayerStand();
+        //}
+
+        if (!gameStarted) return;
+        if (currentHand.GetScore() >= 21) return;
 
         Card drawnCard = deck.DrawCard();
-        playerHand.AddCard(drawnCard, false);
+        currentHand.AddCard(drawnCard, false);
 
         Debug.Log($"Player drew: {drawnCard.rank} of {drawnCard.suit}");
-        Debug.Log($"Player Score After Hit: {playerHand.GetScore()}");
+        Debug.Log($"Player Score After Hit: {currentHand.GetScore()}");
 
-        if (playerHand.GetScore() > 21) {
-            PlayerStand();
+        if (currentHand.GetScore() > 21) {
+            player.Stand();
         }
+
     }
     async public Task PlayerStand() {
         if (playerStand) return;
@@ -70,7 +85,7 @@ public class Dealer : BlackjackManager {
         if (!gameStarted) return;
 
         Card drawnCard = deck.DrawCard();
-        playerHand.AddCard(drawnCard, true);
+        player.playerHand.AddCard(drawnCard, true);
 
         Debug.Log($"Player doubled down and drew: {drawnCard.rank} of {drawnCard.suit}");
         Debug.Log($"Player Score After Double: {playerHand.GetScore()}");
@@ -115,15 +130,28 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task ClearChips() {
-        foreach (GameObject chip in player.placedChips) {
-            Destroy(chip);
+
+        // Destroy Player's Split Hands Bets
+        List<GameObject> playerSplitBettingAreas = new List<GameObject>();
+        foreach (PlayerHand hand in player.activeSplitHands) {
+            playerSplitBettingAreas.Add(hand.bettingArea);
+            hand.bettingArea = null;
         }
-        player.placedChips.Clear();
+        foreach (GameObject child in playerSplitBettingAreas) {
+            Destroy(child);
+        }
+
+        // Destroy Player's Original Hand Bet
+        foreach (Transform chip in player.playerHand.bettingArea.transform) {
+            GameObject chipObject = chip.gameObject;
+            Destroy(chipObject);
+        }
 
         foreach (GameObject chip in winningChips) {
             Destroy(chip);
         }
         winningChips.Clear();
+        player.placedChips.Clear();
     }
 
     async public Task PlayerWin(float multiplier) {
@@ -162,7 +190,7 @@ public class Dealer : BlackjackManager {
                 GameObject winningChip = Instantiate(chip, player.bettingArea.transform, false);
 
                 // Position the winning chips beside the original and double-down chips
-                winningChip.transform.localPosition = chip.transform.localPosition + new Vector3(0.3f, 0, 0);
+                winningChip.transform.localPosition = chip.transform.localPosition + new Vector3(0.25f, 0, 0);
                 winningChip.transform.localRotation = chip.transform.localRotation;
 
                 Chip chipComponent = winningChip.GetComponent<Chip>();
@@ -178,14 +206,14 @@ public class Dealer : BlackjackManager {
 
 
     async private Task ClearHands() {
-        // Clear Player's Hand
-        List<Transform> playerChildren = new List<Transform>();
+        // Clear Player's Original Hand
+        List<Transform> playersOriginalChildren = new List<Transform>();
         foreach (Transform child in playerHand.transform) {
             if (child.name != "Bet") {
-                playerChildren.Add(child);
+                playersOriginalChildren.Add(child);
             }
         }
-        foreach (Transform child in playerChildren) {
+        foreach (Transform child in playersOriginalChildren) {
             float offsetY = 0.01f * discardPile.transform.childCount;
             child.SetParent(discardPile.transform, false);
             child.localPosition = new Vector3(0, offsetY, 0);
@@ -193,6 +221,32 @@ public class Dealer : BlackjackManager {
             child.localScale = new Vector3(5f, 5f, 5f);
         }
         playerHand.cards.Clear();
+
+        // Move player's original hand back to its original position
+        player.ResetOriginalHandPosition();
+
+        // Clear Player's Split Hands
+        List<Transform> playerSplitChildren = new List<Transform>();
+        foreach (PlayerHand hand in player.activeSplitHands) {
+            foreach (Transform child in hand.transform) {
+                if (child.name != "Bet") {
+                    playerSplitChildren.Add(child);
+                }
+            }
+            hand.cards.Clear();
+        }
+        foreach (Transform child in playerSplitChildren) {
+            float offsetY = 0.01f * discardPile.transform.childCount;
+            child.SetParent(discardPile.transform, false);
+            child.localPosition = new Vector3(0, offsetY, 0);
+            child.localRotation = Quaternion.Euler(90, 0, 0);
+            child.localScale = new Vector3(5f, 5f, 5f);
+        }
+
+        player.activeSplitHands.Clear();
+        player.currentHandIndex = 0; // Reset back to the first hand
+        player.currentSplitHands = 0; // Reset back to the first hand
+
 
         // Clear Dealer's Hand
         List<Transform> dealerChildren = new List<Transform>();
@@ -234,9 +288,9 @@ public class Dealer : BlackjackManager {
             return;
         }
 
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), false);
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), true);
         CheckBlackjack();
     }
@@ -250,7 +304,7 @@ public class Dealer : BlackjackManager {
                 Debug.Log("Dealer BJ win player lose");
             }
         }
-        if (playerHand.HasBlackjack()) {
+        if (player.playerHand.HasBlackjack()) {
             Debug.Log("Player BJ win!");
             PlayerStand();
         }

@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour {
 
 
     private void Start() {
-        Application.targetFrameRate = 60;
         ShowBettingUI();
     }
 

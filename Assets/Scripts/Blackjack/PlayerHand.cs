@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerHand : MonoBehaviour {
     public List<Card> cards = new List<Card>();
+    public GameObject bettingArea;
     public int bet = 0;
 
     public void AddCard(Card card, bool last = false) {
@@ -52,6 +53,10 @@ public class PlayerHand : MonoBehaviour {
 
     public void IncrementBet(int amount) {
         bet += amount;
+    }
+
+    public void DecrementBet(int amount) {
+        bet -= amount;
     }
 
     public void Reset() {

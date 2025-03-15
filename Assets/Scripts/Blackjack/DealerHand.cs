@@ -28,14 +28,6 @@ public class DealerHand : MonoBehaviour, IHand {
         cards[1].transform.localRotation = Quaternion.Euler(-90, 0, 0);
     }
 
-    //public void ClearHand() {
-    //    foreach (Transform child in transform) {
-    //        Destroy(child.gameObject);
-    //    }
-
-    //    cards.Clear();
-    //}
-
     public int GetScore() {
         int score = 0;
         int aceCount = 0;
