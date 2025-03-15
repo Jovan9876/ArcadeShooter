@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHand : MonoBehaviour, IHand {
+public class PlayerHand : MonoBehaviour {
     public List<Card> cards = new List<Card>();
+    public int bet = 0;
 
-    public void AddCard(Card card, bool faceDown) {
+    public void AddCard(Card card, bool last = false) {
         cards.Add(card);
 
         card.transform.SetParent(transform, true);
@@ -13,21 +14,11 @@ public class PlayerHand : MonoBehaviour, IHand {
         float offsetY = 0.01f * cards.Count;
         float offsetZ = 0.1f * cards.Count;
 
-        card.transform.localRotation = Quaternion.Euler(-90, 0, 0);
-        card.transform.localPosition = new Vector3(offsetX, offsetY, offsetZ);
-
-    }
-
-    public void AddLastCard(Card card) {
-        cards.Add(card);
-
-        card.transform.SetParent(transform, true);
-
-        float offsetX = 0.1f * cards.Count;
-        float offsetY = 0.01f * cards.Count;
-        float offsetZ = 0.1f * cards.Count;
-
-        card.transform.localRotation = Quaternion.Euler(-90, 90, 0);
+        if (last) {
+            card.transform.localRotation = Quaternion.Euler(-90, 90, 0);
+        } else {
+            card.transform.localRotation = Quaternion.Euler(-90, 0, 0);
+        }
         card.transform.localPosition = new Vector3(offsetX, offsetY, offsetZ);
     }
 
@@ -55,8 +46,16 @@ public class PlayerHand : MonoBehaviour, IHand {
         return score;
     }
 
-
     public bool HasBlackjack() {
         return cards.Count == 2 && GetScore() == 21;
     }
+
+    public void IncrementBet(int amount) {
+        bet += amount;
+    }
+
+    public void Reset() {
+        bet = 0;
+    }
+
 }

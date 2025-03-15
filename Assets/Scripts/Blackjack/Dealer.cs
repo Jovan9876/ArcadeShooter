@@ -70,7 +70,7 @@ public class Dealer : BlackjackManager {
         if (!gameStarted) return;
 
         Card drawnCard = deck.DrawCard();
-        playerHand.AddLastCard(drawnCard);
+        playerHand.AddCard(drawnCard, true);
 
         Debug.Log($"Player doubled down and drew: {drawnCard.rank} of {drawnCard.suit}");
         Debug.Log($"Player Score After Double: {playerHand.GetScore()}");
@@ -242,17 +242,12 @@ public class Dealer : BlackjackManager {
     }
 
     private void CheckBlackjack() {
-        if (dealerHand.ShowingFaceOrAce()) {
-            Debug.Log("DEALER SHOWING FACE CHECKING BJ");
-            if (dealerHand.HasBlackjack()) {
-                dealerHand.FlipOver();
-                if (playerHand.HasBlackjack()) {
-                    Debug.Log("Both BJ push");
-                } else {
-                    Debug.Log("Dealer BJ win player lose");
-                }
-                HandleEndOfRound();
-                return;
+        if (dealerHand.HasBlackjack()) {
+            dealerHand.FlipOver();
+            if (playerHand.HasBlackjack()) {
+                Debug.Log("Both BJ push");
+            } else {
+                Debug.Log("Dealer BJ win player lose");
             }
         }
         if (playerHand.HasBlackjack()) {

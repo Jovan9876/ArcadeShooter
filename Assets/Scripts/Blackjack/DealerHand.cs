@@ -10,13 +10,9 @@ public class DealerHand : MonoBehaviour, IHand {
 
         card.transform.SetParent(transform, true);
 
-        //float offsetX = -60f * cards.Count;
-        //float offsetY = -100f * cards.Count;
         float offsetX = 0.06f * cards.Count;
         float offsetY = 0.01f * cards.Count;
         float offsetZ = 0.08f * cards.Count;
-
-
 
         card.transform.localPosition = new Vector3(offsetX, offsetY, offsetZ);
 

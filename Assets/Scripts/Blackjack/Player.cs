@@ -20,7 +20,6 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject[] chipPrefabs;
     public List<GameObject> placedChips = new List<GameObject>();
 
-
     private void Start() {
         LoadBalance();
     }
