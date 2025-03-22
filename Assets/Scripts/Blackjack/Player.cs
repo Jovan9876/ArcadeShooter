@@ -122,29 +122,7 @@ public class Player : MonoBehaviour {
         manager.ShowBettingUI();
     }
 
-    async public void WinBet(float multiplier) {
-        int winnings = Mathf.RoundToInt(currentBet * multiplier);
-        currentBet = winnings;
-        balance += winnings;
-        SaveBalance();
-        Debug.Log($"Player won {winnings}. New balance: {balance}");
-        await ResetBet();
-    }
 
-    async public void LoseBet() {
-        Debug.Log($"Player lost {currentBet}. New balance: {balance}");
-        SaveBalance();
-        await ResetBet();
-    }
-
-    async public void PushBet() {
-
-        balance += currentBet;
-        SaveBalance();
-        Debug.Log($"Push! Bet returned. New balance: {balance}");
-
-        await ResetBet();
-    }
 
     public void Deal() {
         if (!betPlaced) {
@@ -234,6 +212,7 @@ public class Player : MonoBehaviour {
         // Assign the same bet to the new hand
         newHand.bet = playerHand.bet;
         balance -= newHand.bet;
+        currentBet += newHand.bet;
 
         // Assign a betting GameObject to the new hand
         newHand.bettingArea = Instantiate(playerHand.bettingArea, newHand.transform);
@@ -285,6 +264,22 @@ public class Player : MonoBehaviour {
             float newX = playerHand.transform.position.x + ((i + 1) * spacing);
             activeSplitHands[i].transform.position = new Vector3(newX, activeSplitHands[i].transform.position.y, activeSplitHands[i].transform.position.z);
         }
+    }
+
+    public void ApplyHandPayout(PlayerHand hand, float multiplier) {
+        int winnings = Mathf.RoundToInt(hand.bet * multiplier);
+        if (multiplier == 0f) {
+            Debug.Log($"Hand lost. Bet was {hand.bet}");
+            currentBet -= hand.bet;
+        } else if (multiplier == 1f) {
+            Debug.Log($"Hand pushed. Returning {hand.bet}");
+            balance += hand.bet;
+        } else {
+            Debug.Log($"Hand won. Payout: {winnings} for bet {hand.bet}");
+            balance += winnings;
+        }
+        currentBet += winnings;
+        SaveBalance();
     }
 
     public List<PlayerHand> GetAllSplitHands() {

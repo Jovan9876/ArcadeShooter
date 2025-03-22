@@ -46,20 +46,6 @@ public class Dealer : BlackjackManager {
 
 
     public void PlayerHit(PlayerHand currentHand) {
-        //if (!gameStarted) return;
-        //if (playerHand.GetScore() >= 21) return;
-        //if (playerStand) return;
-
-
-        //Card drawnCard = deck.DrawCard();
-        //playerHand.AddCard(drawnCard, false);
-
-        //Debug.Log($"Player drew: {drawnCard.rank} of {drawnCard.suit}");
-        //Debug.Log($"Player Score After Hit: {playerHand.GetScore()}");
-
-        //if (playerHand.GetScore() > 21) {
-        //    PlayerStand();
-        //}
 
         if (!gameStarted) return;
         if (currentHand.GetScore() >= 21) return;
@@ -114,19 +100,47 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task EndRound() {
-        float multiplier = DetermineWinner();
         await Task.Delay(1500);
 
-        if (multiplier == 0f) {
-            await PlayerLose();
-        } else if (multiplier == 1f) {
-            await PlayerPush();
-        } else if (multiplier == 2f) {
-            await PlayerWin(multiplier);
-        } else if (multiplier == 2.5f) {
-            await PlayerWin(multiplier);
+        List<PlayerHand> allHands = new List<PlayerHand> { player.playerHand };
+        allHands.AddRange(player.activeSplitHands);
+
+        foreach (PlayerHand hand in allHands) {
+            float multiplier = DetermineWinner(hand);
+            Debug.Log($"Hand evaluated with multiplier: {multiplier}");
+
+            // Add chips to won hands
+            if (multiplier > 1f) {
+                PlaceWinningChips(multiplier, hand);
+            }
+
+            // Apply balance update
+            player.ApplyHandPayout(hand, multiplier);
+
+            if (multiplier == 0f) {
+                ClearHandChips(hand);
+            }
+
         }
 
+        await Task.Delay(1000);
+        await ClearChips();
+        await ClearHands();
+        StartBettingPhase();
+
+    }
+
+    private void ClearHandChips(PlayerHand hand) {
+        List<GameObject> chipsToClear = new List<GameObject>();
+
+        foreach (Transform chip in hand.bettingArea.transform) {
+            chipsToClear.Add(chip.gameObject);
+        }
+
+        foreach (GameObject chip in chipsToClear) {
+            Destroy(chip);
+            player.placedChips.Remove(chip);
+        }
     }
 
     async private Task ClearChips() {
@@ -154,54 +168,38 @@ public class Dealer : BlackjackManager {
         player.placedChips.Clear();
     }
 
-    async public Task PlayerWin(float multiplier) {
+    protected void PlaceWinningChips(float multiplier, PlayerHand hand) {
 
-        PlaceWinningChips(multiplier);
-        player.WinBet(multiplier);
-        await Task.Delay(1000);
-        await ClearChips();
-        await ClearHands();
+        List<GameObject> allBetChips = new List<GameObject>();
 
-    }
-
-    async public Task PlayerLose() {
-        await Task.Delay(1000);
-        await ClearChips();
-        await ClearHands();
-        player.LoseBet();
-    }
-
-    async public Task PlayerPush() {
-        await Task.Delay(1000);
-        await ClearChips();
-        await ClearHands();
-        player.PushBet();
-    }
-
-    protected void PlaceWinningChips(float multiplier) {
-
-        List<GameObject> allBetChips = new List<GameObject>(player.placedChips); // Include original and double-down chips
+        // Get all chips from this hand's betting area
+        foreach (Transform chipTransform in hand.bettingArea.transform) {
+            GameObject chipObj = chipTransform.gameObject;
+            allBetChips.Add(chipObj);
+        }
 
         foreach (GameObject chip in allBetChips) {
-            int chipValue = chip.GetComponent<Chip>().chipValue;
-            int totalChipsToPlace = Mathf.RoundToInt(multiplier - 1); // Calculate extra chips to place
+            Chip chipComponent = chip.GetComponent<Chip>();
+            if (chipComponent == null) continue;
+
+            int chipValue = chipComponent.chipValue;
+            int totalChipsToPlace = Mathf.RoundToInt(multiplier - 1); // Extra chips only
 
             for (int i = 0; i < totalChipsToPlace; i++) {
-                GameObject winningChip = Instantiate(chip, player.bettingArea.transform, false);
+                GameObject winningChip = Instantiate(chip, hand.bettingArea.transform, false);
 
-                // Position the winning chips beside the original and double-down chips
+                // Set winning chips to the side of the bet chips
                 winningChip.transform.localPosition = chip.transform.localPosition + new Vector3(0.25f, 0, 0);
                 winningChip.transform.localRotation = chip.transform.localRotation;
 
-                Chip chipComponent = winningChip.GetComponent<Chip>();
-                if (chipComponent != null) {
-                    chipComponent.chipValue = chipValue;
+                Chip newChipComponent = winningChip.GetComponent<Chip>();
+                if (newChipComponent != null) {
+                    newChipComponent.chipValue = chipValue;
                 }
 
                 winningChips.Add(winningChip);
             }
         }
-
     }
 
 

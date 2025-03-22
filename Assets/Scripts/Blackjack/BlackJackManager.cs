@@ -26,21 +26,20 @@ public class BlackjackManager : MonoBehaviour {
         Debug.Log("Place your bets before dealing.");
     }
 
-    protected float DetermineWinner() {
-        int playerScore = playerHand.GetScore();
+    protected float DetermineWinner(PlayerHand hand) {
+        int playerScore = hand.GetScore();
         int dealerScore = dealerHand.GetScore();
 
-        Debug.Log($"Player Final Score: {playerScore}");
-        Debug.Log($"Dealer Final Score: {dealerScore}");
+        Debug.Log($"Checking hand. Player Score: {playerScore}, Dealer Score: {dealerScore}");
 
-        if (playerHand.HasBlackjack() && !dealerHand.HasBlackjack()) {
+        if (hand.HasBlackjack() && !dealerHand.HasBlackjack()) {
             // Player wins with Blackjack 2.5x payout
             Debug.Log("Player wins with Blackjack!");
             return 2.5f;
         } else if (playerScore > 21) {
             // Player busts Player loses bet
             Debug.Log("Player busts, dealer wins.");
-            return 0;
+            return 0f;
         } else if (dealerScore > 21) {
             // Dealer busts Player wins 2x payout
             Debug.Log("Dealer busts, player wins!");
@@ -57,6 +56,7 @@ public class BlackjackManager : MonoBehaviour {
             Debug.Log("It's a push! Player gets their bet back.");
             return 1f;
         }
+
     }
 
 }
