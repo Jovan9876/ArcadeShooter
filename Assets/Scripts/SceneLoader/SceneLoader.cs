@@ -7,6 +7,7 @@ public class SceneLoader : MonoBehaviour {
     public GameObject pauseMenu;
 
     private void Start() {
+        Application.targetFrameRate = 60;
         Time.timeScale = 1f;
 
         if (pauseMenu != null) {

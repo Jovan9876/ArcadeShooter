@@ -5,18 +5,30 @@ using System.Threading.Tasks;
 using static UnityEngine.Rendering.GPUSort;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine.XR;
 
 public class Dealer : BlackjackManager {
 
-    private void Start() {
-        NewDeck();
-        StartNewShoe();
+    private List<GameObject> winningChips = new List<GameObject>();
+    private bool newShoe = true;
+    public bool playerStand = false;
+
+
+    public void DealCards() {
+        gameStarted = true;
+        if (newShoe) {
+            NewDeck();
+            StartNewShoe();
+        } else {
+            StartNewRound();
+        }
     }
 
-    private void StartNewShoe() {
-        //ClearHands();
-        ClearDiscardPile();
-
+    async private Task StartNewShoe() {
+        newShoe = false;
+        await ClearHands();
+        await ClearDiscardPile();
         Card burnCard = deck.BurnCard();
         burnCard.transform.SetParent(discardPile.transform, false);
         burnCard.transform.localPosition = new Vector3(0, 0, 0);
@@ -24,39 +36,57 @@ public class Dealer : BlackjackManager {
         burnCard.transform.localScale = new Vector3(5f, 5f, 5f);
 
 
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), false);
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), true);
 
         CheckBlackjack();
     }
 
 
-    public void PlayerHit() {
+    public void PlayerHit(PlayerHand currentHand) {
+
+        if (!gameStarted) return;
+        if (currentHand.GetScore() >= 21) return;
+
         Card drawnCard = deck.DrawCard();
+        currentHand.AddCard(drawnCard, false);
 
-        playerHand.AddCard(drawnCard, false);
         Debug.Log($"Player drew: {drawnCard.rank} of {drawnCard.suit}");
-        Debug.Log($"Player Score After Hit: {playerHand.GetScore()}");
+        Debug.Log($"Player Score After Hit: {currentHand.GetScore()}");
 
-        if (playerHand.GetScore() > 21) {
-            PlayerStand();
+        if (currentHand.GetScore() > 21) {
+            player.Stand();
         }
+
+    }
+    async public Task PlayerStand() {
+        if (playerStand) return;
+        playerStand = true;
+        await PlayTurn();
     }
 
-    private void HandleEndOfRound() {
-        //StartCoroutine(EndRound());
+    async public Task PlayerDouble() {
+        if (!gameStarted) return;
 
-        EndRound();
+        Card drawnCard = deck.DrawCard();
+        player.playerHand.AddCard(drawnCard, true);
+
+        Debug.Log($"Player doubled down and drew: {drawnCard.rank} of {drawnCard.suit}");
+        Debug.Log($"Player Score After Double: {playerHand.GetScore()}");
+
+        await PlayerStand();
     }
 
-    public void PlayerStand() {
-        PlayTurn();
+    async private Task HandleEndOfRound() {
+        await EndRound();
+        playerStand = false;
     }
 
-    public void PlayTurn() {
-        DealerTurn();
+
+    async public Task PlayTurn() {
+        await DealerTurn();
     }
 
     async private Task DealerTurn() {
@@ -66,25 +96,122 @@ public class Dealer : BlackjackManager {
             await Task.Delay(1000);
             dealerHand.AddCard(deck.DrawCard(), false);
         }
-        HandleEndOfRound();
+        await HandleEndOfRound();
     }
 
     async private Task EndRound() {
-        await Task.Delay(2000);
-        DetermineWinner();
+        await Task.Delay(1500);
+
+        List<PlayerHand> allHands = new List<PlayerHand> { player.playerHand };
+        allHands.AddRange(player.activeSplitHands);
+
+        foreach (PlayerHand hand in allHands) {
+            float multiplier = DetermineWinner(hand);
+            Debug.Log($"Hand evaluated with multiplier: {multiplier}");
+
+            // Add chips to won hands
+            if (multiplier > 1f) {
+                PlaceWinningChips(multiplier, hand);
+            }
+
+            // Apply balance update
+            player.ApplyHandPayout(hand, multiplier);
+
+            if (multiplier == 0f) {
+                ClearHandChips(hand);
+            }
+
+        }
+
         await Task.Delay(1000);
-        ClearHands();
-        //HideUI();
-        StartNewRound();
+        await ClearChips();
+        await ClearHands();
+        StartBettingPhase();
+
     }
 
-    private void ClearHands() {
-        // Clear Player's Hand
-        List<Transform> playerChildren = new List<Transform>();
-        foreach (Transform child in playerHand.transform) {
-            playerChildren.Add(child);
+    private void ClearHandChips(PlayerHand hand) {
+        List<GameObject> chipsToClear = new List<GameObject>();
+
+        foreach (Transform chip in hand.bettingArea.transform) {
+            chipsToClear.Add(chip.gameObject);
         }
-        foreach (Transform child in playerChildren) {
+
+        foreach (GameObject chip in chipsToClear) {
+            Destroy(chip);
+            player.placedChips.Remove(chip);
+        }
+    }
+
+    async private Task ClearChips() {
+
+        // Destroy Player's Split Hands Bets
+        List<GameObject> playerSplitBettingAreas = new List<GameObject>();
+        foreach (PlayerHand hand in player.activeSplitHands) {
+            playerSplitBettingAreas.Add(hand.bettingArea);
+            hand.bettingArea = null;
+        }
+        foreach (GameObject child in playerSplitBettingAreas) {
+            Destroy(child);
+        }
+
+        // Destroy Player's Original Hand Bet
+        foreach (Transform chip in player.playerHand.bettingArea.transform) {
+            GameObject chipObject = chip.gameObject;
+            Destroy(chipObject);
+        }
+
+        foreach (GameObject chip in winningChips) {
+            Destroy(chip);
+        }
+        winningChips.Clear();
+        player.placedChips.Clear();
+    }
+
+    protected void PlaceWinningChips(float multiplier, PlayerHand hand) {
+
+        List<GameObject> allBetChips = new List<GameObject>();
+
+        // Get all chips from this hand's betting area
+        foreach (Transform chipTransform in hand.bettingArea.transform) {
+            GameObject chipObj = chipTransform.gameObject;
+            allBetChips.Add(chipObj);
+        }
+
+        foreach (GameObject chip in allBetChips) {
+            Chip chipComponent = chip.GetComponent<Chip>();
+            if (chipComponent == null) continue;
+
+            int chipValue = chipComponent.chipValue;
+            int totalChipsToPlace = Mathf.RoundToInt(multiplier - 1); // Extra chips only
+
+            for (int i = 0; i < totalChipsToPlace; i++) {
+                GameObject winningChip = Instantiate(chip, hand.bettingArea.transform, false);
+
+                // Set winning chips to the side of the bet chips
+                winningChip.transform.localPosition = chip.transform.localPosition + new Vector3(0.25f, 0, 0);
+                winningChip.transform.localRotation = chip.transform.localRotation;
+
+                Chip newChipComponent = winningChip.GetComponent<Chip>();
+                if (newChipComponent != null) {
+                    newChipComponent.chipValue = chipValue;
+                }
+
+                winningChips.Add(winningChip);
+            }
+        }
+    }
+
+
+    async private Task ClearHands() {
+        // Clear Player's Original Hand
+        List<Transform> playersOriginalChildren = new List<Transform>();
+        foreach (Transform child in playerHand.transform) {
+            if (child.name != "Bet") {
+                playersOriginalChildren.Add(child);
+            }
+        }
+        foreach (Transform child in playersOriginalChildren) {
             float offsetY = 0.01f * discardPile.transform.childCount;
             child.SetParent(discardPile.transform, false);
             child.localPosition = new Vector3(0, offsetY, 0);
@@ -92,6 +219,32 @@ public class Dealer : BlackjackManager {
             child.localScale = new Vector3(5f, 5f, 5f);
         }
         playerHand.cards.Clear();
+
+        // Move player's original hand back to its original position
+        player.ResetOriginalHandPosition();
+
+        // Clear Player's Split Hands
+        List<Transform> playerSplitChildren = new List<Transform>();
+        foreach (PlayerHand hand in player.activeSplitHands) {
+            foreach (Transform child in hand.transform) {
+                if (child.name != "Bet") {
+                    playerSplitChildren.Add(child);
+                }
+            }
+            hand.cards.Clear();
+        }
+        foreach (Transform child in playerSplitChildren) {
+            float offsetY = 0.01f * discardPile.transform.childCount;
+            child.SetParent(discardPile.transform, false);
+            child.localPosition = new Vector3(0, offsetY, 0);
+            child.localRotation = Quaternion.Euler(90, 0, 0);
+            child.localScale = new Vector3(5f, 5f, 5f);
+        }
+
+        player.activeSplitHands.Clear();
+        player.currentHandIndex = 0; // Reset back to the first hand
+        player.currentSplitHands = 0; // Reset back to the first hand
+
 
         // Clear Dealer's Hand
         List<Transform> dealerChildren = new List<Transform>();
@@ -108,7 +261,7 @@ public class Dealer : BlackjackManager {
         dealerHand.cards.Clear();
     }
 
-    private void ClearDiscardPile() {
+    async private Task ClearDiscardPile() {
         List<Transform> discardChildren = new List<Transform>();
         foreach (Transform child in discardPile.transform) {
             discardChildren.Add(child);
@@ -118,7 +271,11 @@ public class Dealer : BlackjackManager {
         }
     }
 
-
+    public void StartBettingPhase() {
+        gameStarted = false;
+        player.ResetBet();
+        Debug.Log("Place your bets before dealing.");
+    }
 
 
     private void StartNewRound() {
@@ -126,30 +283,26 @@ public class Dealer : BlackjackManager {
         if (deck.NeedsNewShoe()) {
             NewDeck();
             StartNewShoe();
+            return;
         }
 
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), false);
-        playerHand.AddCard(deck.DrawCard(), false);
+        player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), true);
         CheckBlackjack();
     }
 
     private void CheckBlackjack() {
-        if (dealerHand.ShowingFaceOrAce()) {
-            Debug.Log("DEALER SHOWING FACE CHECKING BJ");
-            if (dealerHand.HasBlackjack()) {
-                dealerHand.FlipOver();
-                if (playerHand.HasBlackjack()) {
-                    Debug.Log("Both BJ push");
-                } else {
-                    Debug.Log("Dealer BJ win player lose");
-                }
-                HandleEndOfRound();
-                return;
+        if (dealerHand.HasBlackjack()) {
+            dealerHand.FlipOver();
+            if (playerHand.HasBlackjack()) {
+                Debug.Log("Both BJ push");
+            } else {
+                Debug.Log("Dealer BJ win player lose");
             }
         }
-        if (playerHand.HasBlackjack()) {
+        if (player.playerHand.HasBlackjack()) {
             Debug.Log("Player BJ win!");
             PlayerStand();
         }
