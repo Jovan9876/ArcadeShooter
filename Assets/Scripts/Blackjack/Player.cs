@@ -119,6 +119,7 @@ public class Player : MonoBehaviour {
     async public Task ResetBet() {
         await Task.Delay(1000);
         currentBet = 0;
+        playerHand.DecrementBet(playerHand.bet);
         manager.ShowBettingUI();
     }
 
@@ -143,7 +144,6 @@ public class Player : MonoBehaviour {
 
     public void Hit() {
         if (!betPlaced) return;
-        //if (dealer.playerStand) return;
 
         // Get the currently active hand
         PlayerHand currentHand = GetCurrentHand();
@@ -158,6 +158,17 @@ public class Player : MonoBehaviour {
 
     }
     public void Stand() {
+
+        PlayerHand currentHand = GetCurrentHand();
+
+        // Prevent spamming Stand on the same hand
+        if (currentHand.isStood) {
+            Debug.Log("This hand has already stood.");
+            return;
+        }
+
+        currentHand.isStood = true;
+
         if (currentHandIndex < activeSplitHands.Count) {
             // Move to the next split hand
             currentHandIndex++;
@@ -170,16 +181,17 @@ public class Player : MonoBehaviour {
     }
 
     public void DoubleDown() {
-        //if (dealer.playerStand) return;
+        PlayerHand currentHand = GetCurrentHand();
 
-        if (balance >= currentBet && playerHand.cards.Count == 2) {
-            balance -= currentBet;
-            playerHand.IncrementBet(currentBet);
-            currentBet *= 2;
+        // Only allow if hand has exactly 2 cards and player has enough balance
+        if (currentHand.cards.Count == 2 && balance >= currentHand.bet) {
+            balance -= currentHand.bet;
+            currentHand.IncrementBet(currentHand.bet); // Double the bet
+
             SaveBalance();
-            PlaceDoubleDownChips();
-            dealer.PlayerDouble();
-            UpdateDoubleDownButton();
+
+            PlaceDoubleDownChips(currentHand); // Pass current hand's betting area
+            dealer.PlayerDouble(currentHand);     // Deal only one card
         }
 
     }
@@ -210,7 +222,7 @@ public class Player : MonoBehaviour {
         newHand.AddCard(movedCard);
 
         // Assign the same bet to the new hand
-        newHand.bet = playerHand.bet;
+        newHand.IncrementBet(GetCurrentHand().bet);
         balance -= newHand.bet;
         currentBet += newHand.bet;
 
@@ -230,21 +242,27 @@ public class Player : MonoBehaviour {
     }
 
 
-    private void PlaceDoubleDownChips() {
-        List<GameObject> originalChips = new List<GameObject>(placedChips); // Store original chips separately
+    private void PlaceDoubleDownChips(PlayerHand hand) {
+
+        List<GameObject> originalChips = new List<GameObject>(); // Store original chips separately
+
+        foreach (Transform chip in hand.bettingArea.transform) {
+            originalChips.Add(chip.gameObject);
+        }
 
         foreach (GameObject chip in originalChips) {
-            GameObject chipInstance = Instantiate(chipPrefabs[chip.GetComponent<Chip>().chipIndex], bettingArea.transform, false);
+            Chip chipComponent = chip.GetComponent<Chip>();
+            if (chipComponent == null) continue;
+
+            GameObject chipInstance = Instantiate(chipPrefabs[chipComponent.chipIndex], hand.bettingArea.transform, false);
             Destroy(chipInstance.GetComponentInChildren<UniversalAdditionalLightData>());
             Destroy(chipInstance.GetComponentInChildren<Light>());
 
-            // Place behind the original chip
             chipInstance.transform.localPosition = chip.transform.localPosition + new Vector3(0, 0, -0.23f);
             chipInstance.transform.localRotation = chip.transform.localRotation;
 
             placedChips.Add(chipInstance);
         }
-
     }
 
     private void RepositionHands() {
@@ -267,7 +285,6 @@ public class Player : MonoBehaviour {
     }
 
     public void ApplyHandPayout(PlayerHand hand, float multiplier) {
-        int winnings = Mathf.RoundToInt(hand.bet * multiplier);
         if (multiplier == 0f) {
             Debug.Log($"Hand lost. Bet was {hand.bet}");
             currentBet -= hand.bet;
@@ -275,10 +292,11 @@ public class Player : MonoBehaviour {
             Debug.Log($"Hand pushed. Returning {hand.bet}");
             balance += hand.bet;
         } else {
+            int winnings = Mathf.RoundToInt(hand.bet * multiplier);
             Debug.Log($"Hand won. Payout: {winnings} for bet {hand.bet}");
             balance += winnings;
+            currentBet += hand.bet;
         }
-        currentBet += winnings;
         SaveBalance();
     }
 
@@ -287,7 +305,8 @@ public class Player : MonoBehaviour {
     }
 
     public void UpdateDoubleDownButton() {
-        manager.ToggleDoubleDown(playerHand.cards.Count == 2);
+        PlayerHand currentHand = GetCurrentHand();
+        manager.ToggleDoubleDown(currentHand.cards.Count == 2 && balance >= currentHand.bet);
     }
 
     public void ResetOriginalHandPosition() {

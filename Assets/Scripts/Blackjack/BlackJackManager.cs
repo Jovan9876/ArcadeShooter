@@ -8,7 +8,6 @@ public class BlackjackManager : MonoBehaviour {
     [SerializeField] protected DealerHand dealerHand;
     private Dealer dealer;
 
-
     protected bool gameStarted = false;
 
     private void Awake() {

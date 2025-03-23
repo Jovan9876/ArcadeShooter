@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DealerHand : MonoBehaviour, IHand {
+public class DealerHand : MonoBehaviour {
     public List<Card> cards = new List<Card>();
 
     public void AddCard(Card card, bool faceDown) {
