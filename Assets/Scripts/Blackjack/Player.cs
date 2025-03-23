@@ -5,59 +5,63 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 
 public class Player : MonoBehaviour {
-    private Vector3 originalHandPosition;
-    [SerializeField] public PlayerHand playerHand;
-    [SerializeField] public GameObject bettingArea;
 
+    [Header("References")]
     [SerializeField] private Dealer dealer;
     [SerializeField] private UIManager manager;
+    [SerializeField] public PlayerHand playerHand;
+    [SerializeField] public GameObject bettingArea;
+    [SerializeField] private GameObject[] chipPrefabs;
+    
+    // Runtime Data
+    private PlayerData playerData;
+    private Vector3 originalHandPosition;
 
+    [Header("Hand Management")]
     [SerializeField] public List<PlayerHand> extraHands = new List<PlayerHand>();
     public List<PlayerHand> activeSplitHands = new List<PlayerHand>();
     public int currentSplitHands = 0;
     public int currentHandIndex = 0;
 
-    private int balance = 0;
+    [Header("Betting")]
     public int currentBet = 0;
     public bool betPlaced = false;
-
-    private const string BALANCE_KEY = "Player_Currency";
-
-    [SerializeField] private GameObject[] chipPrefabs;
     public List<GameObject> placedChips = new List<GameObject>();
 
+
+
     private void Start() {
-        LoadBalance();
+        playerData = SaveSystem.LoadProgress();
+        if (playerData == null) {
+            Debug.LogWarning("PlayerData not found. Creating new instance.");
+            playerData = new PlayerData();
+        }
         originalHandPosition = playerHand.transform.position;
     }
 
     private void Update() {
-        manager.UpdatePlayerBalance(balance);
+        manager.UpdatePlayerBalance(playerData.balance);
         manager.UpdateBetAmount(currentBet);
         betPlaced = currentBet > 0;
     }
 
-    private void LoadBalance() {
-        balance = PlayerPrefs.GetInt(BALANCE_KEY, 10000);
-        Debug.Log($"Loaded Balance: {balance}");
-    }
-
     private void SaveBalance() {
-        PlayerPrefs.SetInt(BALANCE_KEY, balance);
-        PlayerPrefs.Save();
+        SaveSystem.SaveProgress(playerData);
     }
 
     public void PlaceBet(Chip chip) {
         int chipValue = chip.chipValue;
-        if (chipValue > balance) {
-            Debug.Log("Not enough balance to place bet.");
+        if (chipValue > playerData.balance) {
+            Debug.Log("Not enough playerData.balance to place bet.");
             return;
         }
         playerHand.IncrementBet(chipValue);
         currentBet += chipValue;
-        balance -= chipValue;
+
+        CommitGamble(chipValue);
+
         PlaceBetOnTable(chip);
-        Debug.Log($"Player placed a bet of {chipValue}. New balance: {balance}");
+        Debug.Log($"Player placed a bet of {chipValue}. New playerData.balance: {playerData.balance}");
     }
 
     public void RemoveBet(Chip chip) {
@@ -67,9 +71,11 @@ public class Player : MonoBehaviour {
             Destroy(chip.gameObject);
             playerHand.DecrementBet(chipValue);
             currentBet -= chipValue;
-            balance += chipValue;
+
+            RefundGamble(chipValue);
+
             SaveBalance();
-            Debug.Log($"Removed a {chip.chipValue} chip. New balance: {balance}");
+            Debug.Log($"Removed a {chip.chipValue} chip. New playerData.balance: {playerData.balance}");
             ReorderChips();
         }
     }
@@ -183,10 +189,12 @@ public class Player : MonoBehaviour {
     public void DoubleDown() {
         PlayerHand currentHand = GetCurrentHand();
 
-        // Only allow if hand has exactly 2 cards and player has enough balance
-        if (currentHand.cards.Count == 2 && balance >= currentHand.bet) {
-            balance -= currentHand.bet;
+        // Only allow if hand has exactly 2 cards and player has enough playerData.balance
+        if (currentHand.cards.Count == 2 && playerData.balance >= currentHand.bet) {
+            currentBet += currentHand.bet;
             currentHand.IncrementBet(currentHand.bet); // Double the bet
+
+            CommitGamble(currentHand.bet);
 
             SaveBalance();
 
@@ -205,8 +213,8 @@ public class Player : MonoBehaviour {
             return;
         }
 
-        if (balance < playerHand.bet) {
-            Debug.Log("Not enough balance to split.");
+        if (playerData.balance < GetCurrentHand().bet) {
+            Debug.Log("Not enough playerData.balance to split.");
             return;
         }
 
@@ -222,8 +230,9 @@ public class Player : MonoBehaviour {
         newHand.AddCard(movedCard);
 
         // Assign the same bet to the new hand
-        newHand.IncrementBet(GetCurrentHand().bet);
-        balance -= newHand.bet;
+        int tempBet = GetCurrentHand().bet;
+        CommitGamble(tempBet);
+        newHand.IncrementBet(tempBet);
         currentBet += newHand.bet;
 
         // Assign a betting GameObject to the new hand
@@ -287,15 +296,14 @@ public class Player : MonoBehaviour {
     public void ApplyHandPayout(PlayerHand hand, float multiplier) {
         if (multiplier == 0f) {
             Debug.Log($"Hand lost. Bet was {hand.bet}");
-            currentBet -= hand.bet;
         } else if (multiplier == 1f) {
             Debug.Log($"Hand pushed. Returning {hand.bet}");
-            balance += hand.bet;
+            playerData.balance += hand.bet;
         } else {
             int winnings = Mathf.RoundToInt(hand.bet * multiplier);
             Debug.Log($"Hand won. Payout: {winnings} for bet {hand.bet}");
-            balance += winnings;
-            currentBet += hand.bet;
+            playerData.blackjackProgress.AddWinnings(winnings - hand.bet);
+            playerData.balance += winnings;
         }
         SaveBalance();
     }
@@ -306,11 +314,21 @@ public class Player : MonoBehaviour {
 
     public void UpdateDoubleDownButton() {
         PlayerHand currentHand = GetCurrentHand();
-        manager.ToggleDoubleDown(currentHand.cards.Count == 2 && balance >= currentHand.bet);
+        manager.ToggleDoubleDown(currentHand.cards.Count == 2 && playerData.balance >= currentHand.bet);
     }
 
     public void ResetOriginalHandPosition() {
         playerHand.transform.position = originalHandPosition;
+    }
+
+    private void CommitGamble(int amount) {
+        playerData.balance -= amount;
+        playerData.blackjackProgress.AddGamble(amount);
+    }
+
+    private void RefundGamble(int amount) {
+        playerData.balance += amount;
+        playerData.blackjackProgress.RemoveGamble(amount);
     }
 
 }

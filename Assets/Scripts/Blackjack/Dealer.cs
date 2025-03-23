@@ -39,7 +39,7 @@ public class Dealer : BlackjackManager {
         player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), true);
 
-        CheckBlackjack();
+        await CheckBlackjack();
     }
 
 
@@ -282,7 +282,7 @@ public class Dealer : BlackjackManager {
     }
 
 
-    private void StartNewRound() {
+    async private Task StartNewRound() {
 
         if (deck.NeedsNewShoe()) {
             NewDeck();
@@ -294,16 +294,17 @@ public class Dealer : BlackjackManager {
         dealerHand.AddCard(deck.DrawCard(), false);
         player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), true);
-        CheckBlackjack();
+        await CheckBlackjack();
     }
 
-    private void CheckBlackjack() {
+    async private Task CheckBlackjack() {
         if (dealerHand.HasBlackjack()) {
             dealerHand.FlipOver();
             if (playerHand.HasBlackjack()) {
                 Debug.Log("Both BJ push");
             } else {
                 Debug.Log("Dealer BJ win player lose");
+                HandleEndOfRound();
             }
         }
         if (player.playerHand.HasBlackjack()) {
