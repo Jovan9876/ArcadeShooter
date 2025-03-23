@@ -12,8 +12,6 @@ public class Dealer : BlackjackManager {
 
     private List<GameObject> winningChips = new List<GameObject>();
     private bool newShoe = true;
-    public bool playerStand = false;
-
 
     public void DealCards() {
         gameStarted = true;
@@ -27,7 +25,7 @@ public class Dealer : BlackjackManager {
 
     async private Task StartNewShoe() {
         newShoe = false;
-        await ClearHands();
+        await ClearHands(false);
         await ClearDiscardPile();
         Card burnCard = deck.BurnCard();
         burnCard.transform.SetParent(discardPile.transform, false);
@@ -62,26 +60,24 @@ public class Dealer : BlackjackManager {
 
     }
     async public Task PlayerStand() {
-        if (playerStand) return;
-        playerStand = true;
         await PlayTurn();
     }
 
-    async public Task PlayerDouble() {
+    async public Task PlayerDouble(PlayerHand hand) {
         if (!gameStarted) return;
 
         Card drawnCard = deck.DrawCard();
-        player.playerHand.AddCard(drawnCard, true);
+        hand.AddCard(drawnCard, true);
 
         Debug.Log($"Player doubled down and drew: {drawnCard.rank} of {drawnCard.suit}");
-        Debug.Log($"Player Score After Double: {playerHand.GetScore()}");
+        Debug.Log($"Player Score After Double: {hand.GetScore()}");
 
-        await PlayerStand();
+        // Automatically stand after doubling
+        player.Stand();
     }
 
     async private Task HandleEndOfRound() {
         await EndRound();
-        playerStand = false;
     }
 
 
@@ -203,7 +199,7 @@ public class Dealer : BlackjackManager {
     }
 
 
-    async private Task ClearHands() {
+    async private Task ClearHands(bool shouldClearBet = true) {
         // Clear Player's Original Hand
         List<Transform> playersOriginalChildren = new List<Transform>();
         foreach (Transform child in playerHand.transform) {
@@ -219,6 +215,10 @@ public class Dealer : BlackjackManager {
             child.localScale = new Vector3(5f, 5f, 5f);
         }
         playerHand.cards.Clear();
+        if (shouldClearBet) {
+            playerHand.Reset();
+        }
+        playerHand.isStood = false;
 
         // Move player's original hand back to its original position
         player.ResetOriginalHandPosition();
@@ -232,6 +232,10 @@ public class Dealer : BlackjackManager {
                 }
             }
             hand.cards.Clear();
+            if (shouldClearBet) {
+                hand.Reset();
+            }
+            hand.isStood = false;
         }
         foreach (Transform child in playerSplitChildren) {
             float offsetY = 0.01f * discardPile.transform.childCount;

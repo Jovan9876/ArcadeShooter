@@ -5,6 +5,7 @@ public class PlayerHand : MonoBehaviour {
     public List<Card> cards = new List<Card>();
     public GameObject bettingArea;
     public int bet = 0;
+    public bool isStood = false;
 
     public void AddCard(Card card, bool last = false) {
         cards.Add(card);
