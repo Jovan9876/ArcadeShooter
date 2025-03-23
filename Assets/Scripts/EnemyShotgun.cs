@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using UnityEngine;
 
 public class EnemyShotgun : MonoBehaviour
@@ -30,7 +31,10 @@ public class EnemyShotgun : MonoBehaviour
 
     void Shoot()
     {
+
         if (player == null) return;
+
+        MasterAudio.PlaySound("shotgun-shoot");
 
         Vector3 directionToPlayer = (player.position - firePoint.position).normalized;
         float baseAngle = Mathf.Atan2(directionToPlayer.z, directionToPlayer.x) * Mathf.Rad2Deg;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DarkTonic.MasterAudio;
 
 public class LaserAttack : MonoBehaviour
 {
@@ -41,6 +42,8 @@ public class LaserAttack : MonoBehaviour
 
     private IEnumerator LaserSequence()
     {
+        MasterAudio.PlaySound("laser-shoot");
+
         isFiring = true;
         lineRenderer.enabled = true;
 
