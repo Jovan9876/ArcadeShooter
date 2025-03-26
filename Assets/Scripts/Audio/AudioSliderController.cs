@@ -31,7 +31,7 @@ public class AudioSliderController : MonoBehaviour {
     public void SetMusicVolume(float value) {
         float volume = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
         mixer.SetFloat("MusicVolume", volume);
-        PlayerPrefs.SetFloat("MusicVolume", volume);
+        PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
     public void SetSFXVolume(float value) {
