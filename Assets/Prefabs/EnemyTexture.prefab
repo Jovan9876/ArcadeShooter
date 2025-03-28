@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5913099933832877556}
   - component: {fileID: 8791274705070110600}
   - component: {fileID: 8990413059463831708}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3904683846801579892}
   - component: {fileID: 3055510322267371767}
   - component: {fileID: 1609910297721597160}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 7440365152689901886}
   - component: {fileID: 2232550147111038527}
   - component: {fileID: 6978905114488404566}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 4049286495207427628}
   - component: {fileID: 7155475357874416184}
   - component: {fileID: 7946822136461475511}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 3218514019518660323}
   - component: {fileID: 61810128444882449}
   - component: {fileID: -6609067003409262738}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 5077749348154756968}
   - component: {fileID: 7805129323591274670}
   - component: {fileID: 4063628741659905451}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +668,7 @@ GameObject:
   - component: {fileID: 6643800013373064993}
   - component: {fileID: 4627985291052624493}
   - component: {fileID: 7022725641568510490}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
