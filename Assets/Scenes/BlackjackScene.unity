@@ -8862,6 +8862,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98c5ce036f68d8941922e7541fb70887, type: 3}
+--- !u!1 &875317242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3607534970334446546, guid: ee0ea0149f9e16841b104e56ccd1ff70, type: 3}
+  m_PrefabInstance: {fileID: 2099190344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &878169162
 Mesh:
   m_ObjectHideFlags: 0
@@ -15420,6 +15425,7 @@ MonoBehaviour:
   playerBalance: {fileID: 256567274}
   gameplayPanel: {fileID: 1893072721}
   doubleDownButton: {fileID: 1259278635}
+  splitButton: {fileID: 875317242}
 --- !u!4 &1529141922
 Transform:
   m_ObjectHideFlags: 0

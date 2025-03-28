@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
     [Header("Gameplay UI")]
     [SerializeField] private GameObject gameplayPanel; // Hit, Stand, Double Down, Split buttons
     [SerializeField] private GameObject doubleDownButton;
+    [SerializeField] private GameObject splitButton;
 
 
     private void Start() {
@@ -20,6 +21,9 @@ public class UIManager : MonoBehaviour {
 
     public void ShowBettingUI() {
         bettingPanel.SetActive(true);
+        gameplayPanel.SetActive(false);
+    }
+    public void HideGameplayUI() {
         gameplayPanel.SetActive(false);
     }
 
@@ -43,4 +47,9 @@ public class UIManager : MonoBehaviour {
     public void ToggleDoubleDown(bool show) {
         doubleDownButton.SetActive(show);
     }
+
+    public void ToggleSplit(bool show) {
+        splitButton.SetActive(show);
+    }
+
 }

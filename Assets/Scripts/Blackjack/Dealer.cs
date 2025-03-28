@@ -12,6 +12,7 @@ public class Dealer : BlackjackManager {
 
     private List<GameObject> winningChips = new List<GameObject>();
     private bool newShoe = true;
+    public bool isPlayerTurn { get; private set; } = true;
 
     public void DealCards() {
         gameStarted = true;
@@ -44,7 +45,7 @@ public class Dealer : BlackjackManager {
 
 
     public void PlayerHit(PlayerHand currentHand) {
-
+        if (!isPlayerTurn) return;
         if (!gameStarted) return;
         if (currentHand.GetScore() >= 21) return;
 
@@ -60,11 +61,13 @@ public class Dealer : BlackjackManager {
 
     }
     async public Task PlayerStand() {
+        isPlayerTurn = false;
         await PlayTurn();
     }
 
     async public Task PlayerDouble(PlayerHand hand) {
         if (!gameStarted) return;
+        if (!isPlayerTurn) return;
 
         Card drawnCard = deck.DrawCard();
         hand.AddCard(drawnCard, true);
@@ -283,7 +286,7 @@ public class Dealer : BlackjackManager {
 
 
     async private Task StartNewRound() {
-
+        isPlayerTurn = true;
         if (deck.NeedsNewShoe()) {
             NewDeck();
             StartNewShoe();
