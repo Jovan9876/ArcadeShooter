@@ -163,8 +163,9 @@ public class Player : MonoBehaviour {
 
         dealer.PlayerHit(currentHand);
         UpdateDoubleDownButton();
-
+        UpdateSplitButton();
     }
+
     public void Stand() {
 
         PlayerHand currentHand = GetCurrentHand();
@@ -182,6 +183,8 @@ public class Player : MonoBehaviour {
             currentHandIndex++;
             PlayerHand nextHand = GetCurrentHand();
             dealer.PlayerHit(nextHand);
+            UpdateSplitButton();
+            UpdateDoubleDownButton();
         } else {
             // If all hands have played, dealer takes their turn
             manager.HideGameplayUI();
