@@ -10067,6 +10067,7 @@ GameObject:
   - component: {fileID: 967633617}
   - component: {fileID: 967633616}
   - component: {fileID: 967633615}
+  - component: {fileID: 967633619}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -10161,6 +10162,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &967633619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967633614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad443f6b7350b546a6f13722b2b0ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSlider: {fileID: 2061421828}
+  sfxSlider: {fileID: 1325679654}
+  mixer: {fileID: 24100000, guid: 27f0f61a6e1c54844a1f0c4b80785753, type: 2}
 --- !u!1001 &977027044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15379,7 +15395,6 @@ GameObject:
   - component: {fileID: 1522906415}
   - component: {fileID: 1522906418}
   - component: {fileID: 1522906417}
-  - component: {fileID: 1522906419}
   m_Layer: 5
   m_Name: AudioPanel
   m_TagString: Untagged
@@ -15448,21 +15463,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522906414}
   m_CullTransparentMesh: 1
---- !u!114 &1522906419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1522906414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ad443f6b7350b546a6f13722b2b0ae8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSlider: {fileID: 2061421828}
-  sfxSlider: {fileID: 1325679654}
-  mixer: {fileID: 24100000, guid: 27f0f61a6e1c54844a1f0c4b80785753, type: 2}
 --- !u!1 &1529141920
 GameObject:
   m_ObjectHideFlags: 0
