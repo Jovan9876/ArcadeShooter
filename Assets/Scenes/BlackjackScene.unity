@@ -1462,6 +1462,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2070824787}
     m_Modifications:
+    - target: {fileID: 914109197164562738, guid: 3a30713892c4a81419ae2c5c0b1bf2dc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 34009bbe5dd8fe9448ca08d078a567b2, type: 2}
     - target: {fileID: 1706702667210221799, guid: 3a30713892c4a81419ae2c5c0b1bf2dc, type: 3}
       propertyPath: m_Name
       value: Pocker_Chip_LP_Green
@@ -3049,6 +3053,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0126
       objectReference: {fileID: 0}
+    - target: {fileID: 2414762175264896152, guid: 9f4a79e69b00d01478c5bbad5fbf5e9d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c39b19ac11ab12946b5284fb2c52fa54, type: 2}
     - target: {fileID: 3150121692277643583, guid: 9f4a79e69b00d01478c5bbad5fbf5e9d, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -5142,6 +5150,18 @@ PrefabInstance:
       propertyPath: m_Lightmapping
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4046640083207438174, guid: aee59b89941cd54469151619729a076b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4046640083207438174, guid: aee59b89941cd54469151619729a076b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5963cff99a800f54fbd3e01161a15d78, type: 2}
+    - target: {fileID: 4046640083207438174, guid: aee59b89941cd54469151619729a076b, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5963cff99a800f54fbd3e01161a15d78, type: 2}
     - target: {fileID: 4836532126980910910, guid: aee59b89941cd54469151619729a076b, type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.0173
@@ -15667,6 +15687,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8324817758770232843, guid: dd6ca4f8d12842e47baeb9c104e71716, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 66c63ca8f4fb49e469297e04a1ec7b57, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17055,9 +17079,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5558823692267455780, guid: 55c590ca98cabf442b3b1820efee183d, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5558823692267455780, guid: 55c590ca98cabf442b3b1820efee183d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 880b0d9ba7d75604f9709684db9750ec, type: 2}
     - target: {fileID: 6207109010081916145, guid: 55c590ca98cabf442b3b1820efee183d, type: 3}
       propertyPath: m_Name
       value: Pocker_Chip_LP_Black
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207109010081916145, guid: 55c590ca98cabf442b3b1820efee183d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6732815947196759627, guid: 55c590ca98cabf442b3b1820efee183d, type: 3}
       propertyPath: m_LocalPosition.x
