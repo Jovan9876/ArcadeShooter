@@ -397,6 +397,8 @@ GameObject:
   - component: {fileID: 3218514019518660323}
   - component: {fileID: 61810128444882449}
   - component: {fileID: -6609067003409262738}
+  - component: {fileID: 7797294857181743570}
+  - component: {fileID: 697396926040988961}
   m_Layer: 6
   m_Name: EnemyTexture
   m_TagString: Untagged
@@ -571,6 +573,34 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &7797294857181743570
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5564876546837247171}
+  m_Mesh: {fileID: 0}
+--- !u!114 &697396926040988961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5564876546837247171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3a7cf25c5fc3f49bdc45cf92094c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  normalDamageMultiplier: 1
+  fireDamageMultiplier: 1.5
+  waterDamageMultiplier: 0.8
+  lightningDamageMultiplier: 1.2
+  leafDamageMultiplier: 0.7
+  hitEffect: {fileID: 0}
+  deathEffect: {fileID: 0}
 --- !u!1 &7575878133724270922
 GameObject:
   m_ObjectHideFlags: 0

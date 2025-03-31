@@ -16,6 +16,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private FixedJoystick aimJoystick;
 
     [Header("Settings")]
+    
     [SerializeField] private float attackRate = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -24,6 +25,7 @@ public class PlayerAttack : MonoBehaviour
 
     private float nextAttackTime;
     private CharacterController characterController;
+    public float damage = 10f;
 
     void Start()
     {
@@ -166,7 +168,7 @@ public class PlayerAttack : MonoBehaviour
         if (Physics.Raycast(position, direction, out RaycastHit hit, moveSpeed * Time.deltaTime, enemyLayer))
         {
             // You can access the enemy component here if needed
-            // Example: hit.collider.GetComponent<EnemyHealth>().TakeDamage();
+            hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
             return true;
         }
 
