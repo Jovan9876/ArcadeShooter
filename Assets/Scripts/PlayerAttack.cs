@@ -4,7 +4,13 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject ActivePrefab;
+    [SerializeField] private GameObject NormalPrefab;
+    [SerializeField] private GameObject FirePrefab;
+    [SerializeField] private GameObject WaterPrefab;
+    [SerializeField] private GameObject LightningPrefab;
+    [SerializeField] private GameObject LeafPrefab;
+
     [SerializeField] private Transform firePoint;
     [SerializeField] private FixedJoystick joystick;
 
@@ -12,9 +18,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float attackRate = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float maxDistance = 20f;
-    [SerializeField] private LayerMask enemyLayer; // Set this to your Enemy layer in Inspector
+    [SerializeField] private LayerMask enemyLayer;
 
     private float nextAttackTime;
+
+    void Start()
+    {
+        // Initialize with normal attack by default
+        SetNormalAttack();
+    }
 
     void Update()
     {
@@ -25,12 +37,43 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // Public functions to change attack type (call these from button click events)
+    public void SetNormalAttack()
+    {
+        ActivePrefab = NormalPrefab;
+        Debug.Log("Attack type set to: Normal");
+    }
+
+    public void SetFireAttack()
+    {
+        ActivePrefab = FirePrefab;
+        Debug.Log("Attack type set to: Fire");
+    }
+
+    public void SetWaterAttack()
+    {
+        ActivePrefab = WaterPrefab;
+        Debug.Log("Attack type set to: Water");
+    }
+
+    public void SetLightningAttack()
+    {
+        ActivePrefab = LightningPrefab;
+        Debug.Log("Attack type set to: Lightning");
+    }
+
+    public void SetLeafAttack()
+    {
+        ActivePrefab = LeafPrefab;
+        Debug.Log("Attack type set to: Leaf");
+    }
+
     void Attack()
     {
         Vector3 direction = GetAttackDirection();
         if (direction == Vector3.zero) return;
 
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(direction));
+        GameObject projectile = Instantiate(ActivePrefab, firePoint.position, Quaternion.LookRotation(direction));
 
         // Configure particle system
         var ps = projectile.GetComponent<ParticleSystem>();
@@ -93,8 +136,7 @@ public class PlayerAttack : MonoBehaviour
     {
         // Check for collisions with enemy layer only
         if (Physics.Raycast(position, direction, out RaycastHit hit, moveSpeed * Time.deltaTime, enemyLayer))
-        {   
-
+        {
             // You can access the enemy component here if needed
             // Example: hit.collider.GetComponent<EnemyHealth>().TakeDamage();
             return true;
