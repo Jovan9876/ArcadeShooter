@@ -9687,6 +9687,7 @@ GameObject:
   - component: {fileID: 4125475993694304174}
   - component: {fileID: 4125475993694304168}
   - component: {fileID: 4125475993694304175}
+  - component: {fileID: -6592730846487640105}
   m_Layer: 0
   m_Name: Water
   m_TagString: Untagged
@@ -14534,6 +14535,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &-6592730846487640105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4125475993694304173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63555649b3ba281428c1e4722b988946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnSound: {fileID: 8300000, guid: b1b9c1f0ea1fcae439ed1a4d44ff05fd, type: 3}
+  volume: 1
+  playOnAwake: 1
 --- !u!1 &5872275546567228750
 GameObject:
   m_ObjectHideFlags: 0

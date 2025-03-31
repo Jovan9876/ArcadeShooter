@@ -12,28 +12,56 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject LeafPrefab;
 
     [SerializeField] private Transform firePoint;
-    [SerializeField] private FixedJoystick joystick;
+    [SerializeField] private FixedJoystick movementJoystick;
+    [SerializeField] private FixedJoystick aimJoystick;
 
     [Header("Settings")]
     [SerializeField] private float attackRate = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float maxDistance = 20f;
     [SerializeField] private LayerMask enemyLayer;
 
     private float nextAttackTime;
+    private CharacterController characterController;
 
     void Start()
     {
+        characterController = GetComponent<CharacterController>();
         // Initialize with normal attack by default
         SetNormalAttack();
     }
 
     void Update()
     {
-        if (Time.time >= nextAttackTime && HasJoystickInput())
+        //HandleMovement();
+        HandleRotation();
+
+        if (Time.time >= nextAttackTime && HasAimInput())
         {
             Attack();
             nextAttackTime = Time.time + attackRate;
+        }
+    }
+
+/*    void HandleMovement()
+    {
+        Vector3 moveDirection = new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical);
+        if (moveDirection.magnitude > 0)
+        {
+            // Move the character
+            characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+        }
+    }*/
+
+    void HandleRotation()
+    {
+        Vector3 aimDirection = new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical);
+        if (aimDirection.magnitude > 0)
+        {
+            // Rotate the character to face aim direction
+            Quaternion targetRotation = Quaternion.LookRotation(aimDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
@@ -156,6 +184,6 @@ public class PlayerAttack : MonoBehaviour
         Destroy(projectile, ps?.main.duration ?? 0.1f);
     }
 
-    private bool HasJoystickInput() => joystick.Horizontal != 0 || joystick.Vertical != 0;
-    private Vector3 GetAttackDirection() => new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized;
+    private bool HasAimInput() => aimJoystick.Horizontal != 0 || aimJoystick.Vertical != 0;
+    private Vector3 GetAttackDirection() => new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical).normalized;
 }
