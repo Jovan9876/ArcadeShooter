@@ -25,7 +25,7 @@ public class PlayerAttack : MonoBehaviour
 
     private float nextAttackTime;
     private CharacterController characterController;
-    public float damage = 10f;
+    public float damage = 20f;
 
     void Start()
     {
@@ -167,7 +167,6 @@ public class PlayerAttack : MonoBehaviour
         // Check for collisions with enemy layer only
         if (Physics.Raycast(position, direction, out RaycastHit hit, moveSpeed * Time.deltaTime, enemyLayer))
         {
-            // You can access the enemy component here if needed
             hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
             return true;
         }
