@@ -4,25 +4,98 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject ActivePrefab;
+    [SerializeField] private GameObject NormalPrefab;
+    [SerializeField] private GameObject FirePrefab;
+    [SerializeField] private GameObject WaterPrefab;
+    [SerializeField] private GameObject LightningPrefab;
+    [SerializeField] private GameObject LeafPrefab;
+
     [SerializeField] private Transform firePoint;
-    [SerializeField] private FixedJoystick joystick;
+    [SerializeField] private FixedJoystick movementJoystick;
+    [SerializeField] private FixedJoystick aimJoystick;
 
     [Header("Settings")]
+    
     [SerializeField] private float attackRate = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float rotationSpeed = 10f;
     [SerializeField] private float maxDistance = 20f;
-    [SerializeField] private LayerMask enemyLayer; // Set this to your Enemy layer in Inspector
+    [SerializeField] private LayerMask enemyLayer;
 
     private float nextAttackTime;
+    private CharacterController characterController;
+    public float damage = 20f;
+
+    void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+        // Initialize with normal attack by default
+        SetNormalAttack();
+    }
 
     void Update()
     {
-        if (Time.time >= nextAttackTime && HasJoystickInput())
+        //HandleMovement();
+        HandleRotation();
+
+        if (Time.time >= nextAttackTime && HasAimInput())
         {
             Attack();
             nextAttackTime = Time.time + attackRate;
         }
+    }
+
+/*    void HandleMovement()
+    {
+        Vector3 moveDirection = new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical);
+        if (moveDirection.magnitude > 0)
+        {
+            // Move the character
+            characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
+        }
+    }*/
+
+    void HandleRotation()
+    {
+        Vector3 aimDirection = new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical);
+        if (aimDirection.magnitude > 0)
+        {
+            // Rotate the character to face aim direction
+            Quaternion targetRotation = Quaternion.LookRotation(aimDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    // Public functions to change attack type (call these from button click events)
+    public void SetNormalAttack()
+    {
+        ActivePrefab = NormalPrefab;
+        Debug.Log("Attack type set to: Normal");
+    }
+
+    public void SetFireAttack()
+    {
+        ActivePrefab = FirePrefab;
+        Debug.Log("Attack type set to: Fire");
+    }
+
+    public void SetWaterAttack()
+    {
+        ActivePrefab = WaterPrefab;
+        Debug.Log("Attack type set to: Water");
+    }
+
+    public void SetLightningAttack()
+    {
+        ActivePrefab = LightningPrefab;
+        Debug.Log("Attack type set to: Lightning");
+    }
+
+    public void SetLeafAttack()
+    {
+        ActivePrefab = LeafPrefab;
+        Debug.Log("Attack type set to: Leaf");
     }
 
     void Attack()
@@ -30,7 +103,7 @@ public class PlayerAttack : MonoBehaviour
         Vector3 direction = GetAttackDirection();
         if (direction == Vector3.zero) return;
 
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.LookRotation(direction));
+        GameObject projectile = Instantiate(ActivePrefab, firePoint.position, Quaternion.LookRotation(direction));
 
         // Configure particle system
         var ps = projectile.GetComponent<ParticleSystem>();
@@ -93,10 +166,8 @@ public class PlayerAttack : MonoBehaviour
     {
         // Check for collisions with enemy layer only
         if (Physics.Raycast(position, direction, out RaycastHit hit, moveSpeed * Time.deltaTime, enemyLayer))
-        {   
-
-            // You can access the enemy component here if needed
-            // Example: hit.collider.GetComponent<EnemyHealth>().TakeDamage();
+        {
+            hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
             return true;
         }
 
@@ -114,6 +185,15 @@ public class PlayerAttack : MonoBehaviour
         Destroy(projectile, ps?.main.duration ?? 0.1f);
     }
 
-    private bool HasJoystickInput() => joystick.Horizontal != 0 || joystick.Vertical != 0;
-    private Vector3 GetAttackDirection() => new Vector3(joystick.Horizontal, 0, joystick.Vertical).normalized;
+    private bool HasAimInput() => aimJoystick.Horizontal != 0 || aimJoystick.Vertical != 0;
+    private Vector3 GetAttackDirection() => new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical).normalized;
+
+    public enum AttackType
+    {
+        Normal,
+        Fire,
+        Water,
+        Lightning,
+        Leaf
+    }
 }
