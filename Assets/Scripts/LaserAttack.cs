@@ -91,6 +91,14 @@ public class LaserAttack : MonoBehaviour
     {
         if (Physics.Raycast(firePoint.position, lockedDirection, out RaycastHit hit, laserRange))
         {
+            if (hit.collider.CompareTag("Player"))
+            {
+                EnemyAttack attack = GetComponent<EnemyAttack>();
+                if (attack != null)
+                {
+                    attack.DealDamage(hit.collider.gameObject);
+                }
+            }
         }
     }
 }
