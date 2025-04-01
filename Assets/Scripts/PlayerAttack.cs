@@ -1,5 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+namespace Elements{
+    public enum AttackType
+    {
+        Normal,
+        Fire,
+        Water,
+        Lightning,
+        Leaf
+    }
+}
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -26,12 +38,29 @@ public class PlayerAttack : MonoBehaviour
     private float nextAttackTime;
     private CharacterController characterController;
     public float damage = 20f;
+    private float finalDamage;
+    public Dictionary<Elements.AttackType, float> damageModifiers = new Dictionary<Elements.AttackType, float>();
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        
+        damageModifiers[Elements.AttackType.Normal] = 1.0f;
+        damageModifiers[Elements.AttackType.Fire] = 1.0f;
+        damageModifiers[Elements.AttackType.Water] = 1.0f;
+        damageModifiers[Elements.AttackType.Lightning] = 1.0f;
+        damageModifiers[Elements.AttackType.Leaf] = 1.0f;
+        
         // Initialize with normal attack by default
         SetNormalAttack();
+
+        // Debug.Log("Damage Modifiers");
+        // Debug.Log(damageModifiers["fire"]);
+        // Debug.Log(damageModifiers["water"]);
+        // Debug.Log(damageModifiers["neutral"]);
+        // Debug.Log(damageModifiers["leaf"]);
+        // Debug.Log(damageModifiers["lightning"]);
+
     }
 
     void Update()
@@ -44,6 +73,15 @@ public class PlayerAttack : MonoBehaviour
             Attack();
             nextAttackTime = Time.time + attackRate;
         }
+    }
+
+    // Upgrades element damage
+    public void upgradeElement(Elements.AttackType element, float modifier) {
+        damageModifiers[element] += modifier;
+    }
+
+    public Dictionary<Elements.AttackType, float> getUpgrades(){
+        return damageModifiers;
     }
 
 /*    void HandleMovement()
@@ -72,30 +110,38 @@ public class PlayerAttack : MonoBehaviour
     {
         ActivePrefab = NormalPrefab;
         Debug.Log("Attack type set to: Normal");
+        finalDamage = damage * damageModifiers[Elements.AttackType.Normal];
     }
 
     public void SetFireAttack()
     {
         ActivePrefab = FirePrefab;
         Debug.Log("Attack type set to: Fire");
+        finalDamage = damage * damageModifiers[Elements.AttackType.Fire];
     }
 
     public void SetWaterAttack()
     {
         ActivePrefab = WaterPrefab;
         Debug.Log("Attack type set to: Water");
+        finalDamage = damage * damageModifiers[Elements.AttackType.Water];
+
     }
 
     public void SetLightningAttack()
     {
         ActivePrefab = LightningPrefab;
         Debug.Log("Attack type set to: Lightning");
+        finalDamage = damage * damageModifiers[Elements.AttackType.Lightning];
+
     }
 
     public void SetLeafAttack()
     {
         ActivePrefab = LeafPrefab;
         Debug.Log("Attack type set to: Leaf");
+        finalDamage = damage * damageModifiers[Elements.AttackType.Leaf];
+
     }
 
     void Attack()
@@ -187,13 +233,4 @@ public class PlayerAttack : MonoBehaviour
 
     private bool HasAimInput() => aimJoystick.Horizontal != 0 || aimJoystick.Vertical != 0;
     private Vector3 GetAttackDirection() => new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical).normalized;
-
-    public enum AttackType
-    {
-        Normal,
-        Fire,
-        Water,
-        Lightning,
-        Leaf
-    }
 }

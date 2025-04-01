@@ -9,13 +9,10 @@ public class CloseWindow : MonoBehaviour
     private GameStateManager gameStateManager;
     [SerializeField]
     private OptionSelector optionSelector;
-    // private GameObject player1;
-    // private GameObject player2;
 
     void Start()
     {
         gameStateManager = FindObjectOfType<GameStateManager>();
-        // player1 = GameOsbject.FindGameObjectWithTag("Player2");
     }
 
     void Awake()
@@ -29,29 +26,24 @@ public class CloseWindow : MonoBehaviour
         closeButton.onClick.RemoveAllListeners();
 
         // Add a new listener to disable the window
-        closeButton.onClick.AddListener(AcceptCombo);
+        closeButton.onClick.AddListener(AcceptUpgrade);
         closeButton.onClick.AddListener(CloseImage);
         //Pause game
         Time.timeScale = 0;
 
         // Restrict Player Inputs
-        // player1?.GetComponentInChildren<ComboInput>()?.ToggleInput(false);
-        // player2?.GetComponentInChildren<ComboInput>()?.ToggleInput(false);
     }
 
     void CloseImage()
     {
         // Resume game
-        Time.timeScale = 1;
+        // Time.timeScale = 1;
 
-        // Allow Player Inputs
-        // player1?.GetComponentInChildren<ComboInput>()?.ToggleInput(true);
-        // player2?.GetComponentInChildren<ComboInput>()?.ToggleInput(true);
         // Set Window inactive
         transform.parent.gameObject.SetActive(false);
     }
 
-    private void AcceptCombo()
+    private void AcceptUpgrade()
     {
         optionSelector.AcceptOption();
     }
