@@ -16,12 +16,15 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private ParticleSystem hitEffect;
     [SerializeField] private GameObject deathEffect;
 
+    private GameStateManager gameStateManager;
+    public int mobExp = 20;
     private float currentHealth;
     private bool isDead = false;
 
     void Start()
     {
         currentHealth = maxHealth;
+        gameStateManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
     }
 
 
@@ -68,6 +71,8 @@ public class EnemyHealth : MonoBehaviour
         isDead = true;
 
         Debug.Log("Enemy died!");
+
+        gameStateManager.addExp(mobExp);
 
         // Play death effect
 /*        if (deathEffect != null)

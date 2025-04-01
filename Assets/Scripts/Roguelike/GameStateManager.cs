@@ -52,7 +52,7 @@ public class GameStateManager : MonoBehaviour
         Debug.Log("Player level up");
 
         //Reset currentExp and increase levelup threshold
-        currentExp = 0;
+        currentExp -= levelUpThreshold;
         level++;
         levelUpThreshold += 10;
 
