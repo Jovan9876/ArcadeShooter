@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
     [SerializeField] public PlayerHand playerHand;
     [SerializeField] public GameObject bettingArea;
     [SerializeField] private GameObject[] chipPrefabs;
-    
+
     // Runtime Data
     private PlayerData playerData;
     private Vector3 originalHandPosition;
@@ -146,9 +146,11 @@ public class Player : MonoBehaviour {
         dealer.DealCards();
         Debug.Log("Dealing cards...");
         UpdateDoubleDownButton();
+        UpdateSplitButton();
     }
 
     public void Hit() {
+        if (!dealer.isPlayerTurn) return;
         if (!betPlaced) return;
 
         // Get the currently active hand
@@ -161,8 +163,9 @@ public class Player : MonoBehaviour {
 
         dealer.PlayerHit(currentHand);
         UpdateDoubleDownButton();
-
+        UpdateSplitButton();
     }
+
     public void Stand() {
 
         PlayerHand currentHand = GetCurrentHand();
@@ -180,13 +183,17 @@ public class Player : MonoBehaviour {
             currentHandIndex++;
             PlayerHand nextHand = GetCurrentHand();
             dealer.PlayerHit(nextHand);
+            UpdateSplitButton();
+            UpdateDoubleDownButton();
         } else {
             // If all hands have played, dealer takes their turn
+            manager.HideGameplayUI();
             dealer.PlayerStand();
         }
     }
 
     public void DoubleDown() {
+        if (!dealer.isPlayerTurn) return;
         PlayerHand currentHand = GetCurrentHand();
 
         // Only allow if hand has exactly 2 cards and player has enough playerData.balance
@@ -205,6 +212,7 @@ public class Player : MonoBehaviour {
     }
 
     public void Split() {
+        if (!dealer.isPlayerTurn) return;
         if (activeSplitHands.Count >= 4) return; // Max 4 split hands
 
         // Check if the original hand can be split
@@ -315,6 +323,13 @@ public class Player : MonoBehaviour {
     public void UpdateDoubleDownButton() {
         PlayerHand currentHand = GetCurrentHand();
         manager.ToggleDoubleDown(currentHand.cards.Count == 2 && playerData.balance >= currentHand.bet);
+    }
+
+    public void UpdateSplitButton() {
+        PlayerHand currentHand = GetCurrentHand();
+        manager.ToggleSplit(currentHand.cards.Count == 2 &&
+                    currentHand.cards[0].rank == currentHand.cards[1].rank &&
+                    playerData.balance >= currentHand.bet);
     }
 
     public void ResetOriginalHandPosition() {
