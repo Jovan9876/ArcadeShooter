@@ -29,7 +29,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDead) return;
 
-        // Apply damage multiplier based on attack type
         float damage = baseDamage;
         currentHealth -= damage;
 

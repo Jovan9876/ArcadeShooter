@@ -187,4 +187,13 @@ public class PlayerAttack : MonoBehaviour
 
     private bool HasAimInput() => aimJoystick.Horizontal != 0 || aimJoystick.Vertical != 0;
     private Vector3 GetAttackDirection() => new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical).normalized;
+
+    public enum AttackType
+    {
+        Normal,
+        Fire,
+        Water,
+        Lightning,
+        Leaf
+    }
 }
