@@ -52,9 +52,10 @@ public class PlayerInfo : MonoBehaviour
         if (deathMessageUI != null)
         {
             deathMessageUI.SetActive(true);
+            Time.timeScale = 0f;
         }
 
-        StartCoroutine(death());
+        //StartCoroutine(death());
     }
 
     private IEnumerator death()
