@@ -1,27 +1,65 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 public class PlayerInfo : MonoBehaviour
 {
     public int health = 3;
     private int currentHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public TMP_Text healthTMP;
+
+    public GameObject deathMessageUI;
+    public string blackjack = "BlackjackScene";
+
     private void Start()
     {
         currentHealth = health;
+        UpdateHealthUI();
+
+        if (deathMessageUI != null)
+        {
+            deathMessageUI.SetActive(false);
+        }
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        Debug.Log("Player took damage" + currentHealth);
+        UpdateHealthUI();
+
         if (currentHealth <= 0)
         {
             Die();
         }
     }
 
+    private void UpdateHealthUI()
+    {
+        int displayHealth = Mathf.Max(0, currentHealth);
+        if (healthTMP != null)
+        {
+            healthTMP.text = "HP : " + displayHealth;
+        }
+    }
+
     private void Die()
     {
         Debug.Log("Player died!");
+
+        if (deathMessageUI != null)
+        {
+            deathMessageUI.SetActive(true);
+        }
+
+        StartCoroutine(death());
+    }
+
+    private IEnumerator death()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(blackjack);
     }
 }
