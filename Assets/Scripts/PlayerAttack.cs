@@ -1,3 +1,4 @@
+using DarkTonic.MasterAudio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -153,12 +154,14 @@ public class PlayerAttack : MonoBehaviour
 
         // Configure particle system
         var ps = projectile.GetComponent<ParticleSystem>();
+        AudioScript audioScript = projectile.GetComponent<AudioScript>();
         if (ps != null)
         {
             var main = ps.main;
             main.startSpeed = 0;
             ps.Play();
         }
+        MasterAudio.PlaySound(audioScript.sfxName);
 
         StartCoroutine(MoveProjectile(projectile, direction));
     }
