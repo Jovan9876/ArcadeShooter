@@ -2003,7 +2003,7 @@ MonoBehaviour:
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
   willCleanUpDelegatesAfterStop: 1
-  frames: 1340
+  frames: 2083
 --- !u!1 &88580957
 GameObject:
   m_ObjectHideFlags: 0
@@ -9755,16 +9755,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931518f9ca6c3844891dee74db8ed494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1
+  weight: 20
   probabilityToPlay: 100
   importance: 5
   isUninterruptible: 0
   useLocalization: 0
   reReRandomizeOnLoop: 0
-  useRandomPitch: 0
+  useRandomPitch: 1
   randomPitchMode: 0
-  randomPitchMin: 0
-  randomPitchMax: 0
+  randomPitchMin: -0.5
+  randomPitchMax: 0.5
   useRandomVolume: 0
   randomVolumeMode: 0
   randomVolumeMin: 0
@@ -38066,16 +38066,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931518f9ca6c3844891dee74db8ed494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weight: 1
+  weight: 20
   probabilityToPlay: 100
   importance: 5
   isUninterruptible: 0
   useLocalization: 0
   reReRandomizeOnLoop: 0
-  useRandomPitch: 0
+  useRandomPitch: 1
   randomPitchMode: 0
-  randomPitchMin: 0
-  randomPitchMax: 0
+  randomPitchMin: -0.5
+  randomPitchMax: 0.5
   useRandomVolume: 0
   randomVolumeMode: 0
   randomVolumeMin: 0
@@ -62191,7 +62191,7 @@ MonoBehaviour:
   soundPlayedEventActive: 0
   soundPlayedCustomEvent: 
   willCleanUpDelegatesAfterStop: 1
-  frames: 1311
+  frames: 1772
 --- !u!4 &2147278363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6954757686636023224, guid: 47714b495623e9740bdcb78a57359941, type: 3}
