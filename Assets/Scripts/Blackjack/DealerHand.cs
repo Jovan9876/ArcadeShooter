@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// Represents the dealer's hand, handles card management and Blackjack logic specific to the dealer
 public class DealerHand : MonoBehaviour {
     public List<Card> cards = new List<Card>();
 
     public void AddCard(Card card, bool faceDown) {
+        // Adds a card to the dealer's hand and positions it.
         cards.Add(card);
 
         card.transform.SetParent(transform, true);
@@ -25,10 +27,12 @@ public class DealerHand : MonoBehaviour {
     }
 
     public void FlipOver() {
+        // Flips over the dealer's face-down card (2nd card)
         cards[1].transform.localRotation = Quaternion.Euler(-90, 0, 0);
     }
 
     public int GetScore() {
+        // Calculates the total score of the dealer's hand
         int score = 0;
         int aceCount = 0;
 
@@ -53,6 +57,7 @@ public class DealerHand : MonoBehaviour {
     }
 
     public bool HasSoft17() {
+        // Determines if the dealer has a "soft 17" (an Ace + other cards totaling 6)
         int score = 0;
         int aceCount = 0;
 
@@ -75,10 +80,12 @@ public class DealerHand : MonoBehaviour {
     }
 
     public bool HasBlackjack() {
+        // Checks if the dealer has a natural blackjack (21 with 2 cards)
         return cards.Count == 2 && GetScore() == 21;
     }
 
     public bool ShowingFaceOrAce() {
+        // Checks if the dealer is showing an Ace or a 10 value card
         return cards.Count == 2 && (cards[0].rank == CardEnums.Rank.Ace || cards[0].GetValue(0) == 10);
     }
 }

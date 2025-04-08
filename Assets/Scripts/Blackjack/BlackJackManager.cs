@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 
+// Manages the flow of the Blackjack game: deck generation, betting phase, and determining winners.
 public class BlackjackManager : MonoBehaviour {
-    [SerializeField] protected Deck deck;
-    [SerializeField] protected GameObject discardPile;
-    [SerializeField] protected Player player;
-    [SerializeField] protected PlayerHand playerHand;
-    [SerializeField] protected DealerHand dealerHand;
-    private Dealer dealer;
 
-    protected bool gameStarted = false;
+    [Header("Game References")]
+    [SerializeField] protected Deck deck;                 // Reference to the deck used for gameplay
+    [SerializeField] protected GameObject discardPile;    // Reference to the discard pile object
+    [SerializeField] protected Player player;             // Reference to the player
+    [SerializeField] protected PlayerHand playerHand;     // Reference to the player's hand
+    [SerializeField] protected DealerHand dealerHand;     // Reference to the dealer's hand
+    
+    private Dealer dealer;                                // Internal reference to the dealer logic
+    protected bool gameStarted = false;                   // Whether a game round is in progress
 
     private void Awake() {
         dealer = GetComponent<Dealer>();
     }
 
     protected void NewDeck() {
+        // Creates a new deck and shuffles it
         deck.GenerateDeck();
         deck.Shuffle();
     }

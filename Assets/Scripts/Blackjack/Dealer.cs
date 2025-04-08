@@ -8,13 +8,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine.XR;
 
+// Inherits from BlackjackManager to access shared game logic like deck handling and winner evaluation
 public class Dealer : BlackjackManager {
 
     private List<GameObject> winningChips = new List<GameObject>();
     private bool newShoe = true;
+
+    // Indicates if it's currently the player's turn (used to prevent premature dealer logic)
     public bool isPlayerTurn { get; private set; } = true;
 
     public void DealCards() {
+        // Begins a new round or shoe depending on the flag.
         gameStarted = true;
         if (newShoe) {
             NewDeck();
@@ -25,16 +29,19 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task StartNewShoe() {
+        // Starts a new shoe by clearing hands and discards, burning a card, and dealing cards
         newShoe = false;
         await ClearHands(false);
         await ClearDiscardPile();
+
+        // Burn the top card of the deck
         Card burnCard = deck.BurnCard();
         burnCard.transform.SetParent(discardPile.transform, false);
         burnCard.transform.localPosition = new Vector3(0, 0, 0);
         burnCard.transform.localRotation = Quaternion.Euler(90, 0, 0);
         burnCard.transform.localScale = new Vector3(5f, 5f, 5f);
 
-
+        // Deal initial cards
         player.playerHand.AddCard(deck.DrawCard(), false);
         dealerHand.AddCard(deck.DrawCard(), false);
         player.playerHand.AddCard(deck.DrawCard(), false);
@@ -45,6 +52,7 @@ public class Dealer : BlackjackManager {
 
 
     public void PlayerHit(PlayerHand currentHand) {
+        // Handles the player's hit action by drawing and adding a card
         if (!isPlayerTurn) return;
         if (!gameStarted) return;
         if (currentHand.GetScore() >= 21) return;
@@ -55,17 +63,20 @@ public class Dealer : BlackjackManager {
         Debug.Log($"Player drew: {drawnCard.rank} of {drawnCard.suit}");
         Debug.Log($"Player Score After Hit: {currentHand.GetScore()}");
 
+        // Auto-stand if bust
         if (currentHand.GetScore() > 21) {
             player.Stand();
         }
 
     }
     async public Task PlayerStand() {
+        // Ends the player's turn and starts the dealer's turn
         isPlayerTurn = false;
         await PlayTurn();
     }
 
     async public Task PlayerDouble(PlayerHand hand) {
+        // Handles the double down logic: draw one card and auto-stand
         if (!gameStarted) return;
         if (!isPlayerTurn) return;
 
@@ -85,10 +96,12 @@ public class Dealer : BlackjackManager {
 
 
     async public Task PlayTurn() {
+        // Begins the dealer's turn logic
         await DealerTurn();
     }
 
     async private Task DealerTurn() {
+        // Dealer flips their second card and draws until they reach 17 or higher
         dealerHand.FlipOver();
 
         while (dealerHand.GetScore() < 17 || (dealerHand.GetScore() == 17 && dealerHand.HasSoft17())) {
@@ -99,6 +112,7 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task EndRound() {
+        // Final logic for comparing hands and awarding payouts
         await Task.Delay(1500);
 
         List<PlayerHand> allHands = new List<PlayerHand> { player.playerHand };
@@ -116,6 +130,7 @@ public class Dealer : BlackjackManager {
             // Apply balance update
             player.ApplyHandPayout(hand, multiplier);
 
+            // Clear chips if player lost
             if (multiplier == 0f) {
                 ClearHandChips(hand);
             }
@@ -143,7 +158,7 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task ClearChips() {
-
+        // Destroys all chip GameObjects at the end of a round (both bets and winnings)
         // Destroy Player's Split Hands Bets
         List<GameObject> playerSplitBettingAreas = new List<GameObject>();
         foreach (PlayerHand hand in player.activeSplitHands) {
@@ -168,6 +183,7 @@ public class Dealer : BlackjackManager {
     }
 
     protected void PlaceWinningChips(float multiplier, PlayerHand hand) {
+        // Instantiates extra chips to visually show the player’s winnings
 
         List<GameObject> allBetChips = new List<GameObject>();
 
@@ -203,6 +219,7 @@ public class Dealer : BlackjackManager {
 
 
     async private Task ClearHands(bool shouldClearBet = true) {
+        // Moves all cards to the discard pile and resets hands.
         // Clear Player's Original Hand
         List<Transform> playersOriginalChildren = new List<Transform>();
         foreach (Transform child in playerHand.transform) {
@@ -269,6 +286,7 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task ClearDiscardPile() {
+        // Destroys all cards in the discard pile
         List<Transform> discardChildren = new List<Transform>();
         foreach (Transform child in discardPile.transform) {
             discardChildren.Add(child);
@@ -279,6 +297,7 @@ public class Dealer : BlackjackManager {
     }
 
     public void StartBettingPhase() {
+        // Resets for a new betting phase
         gameStarted = false;
         player.ResetBet();
         Debug.Log("Place your bets before dealing.");
@@ -286,6 +305,7 @@ public class Dealer : BlackjackManager {
 
 
     async private Task StartNewRound() {
+        // Starts a normal new round (not a new shoe)
         isPlayerTurn = true;
         if (deck.NeedsNewShoe()) {
             NewDeck();
@@ -301,6 +321,7 @@ public class Dealer : BlackjackManager {
     }
 
     async private Task CheckBlackjack() {
+        // Checks for player or dealer Blackjack before the turn proceeds
         if (dealerHand.HasBlackjack()) {
             dealerHand.FlipOver();
             if (playerHand.HasBlackjack()) {

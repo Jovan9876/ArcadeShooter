@@ -4,6 +4,8 @@ using UnityEngine.Rendering.Universal;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 
+// Handles player logic including betting, dealing, hitting, standing, doubling down,
+// splitting hands, and managing chip placements and payouts.
 public class Player : MonoBehaviour {
 
     [Header("References")]
@@ -18,17 +20,15 @@ public class Player : MonoBehaviour {
     private Vector3 originalHandPosition;
 
     [Header("Hand Management")]
-    [SerializeField] public List<PlayerHand> extraHands = new List<PlayerHand>();
-    public List<PlayerHand> activeSplitHands = new List<PlayerHand>();
-    public int currentSplitHands = 0;
-    public int currentHandIndex = 0;
+    public List<PlayerHand> extraHands = new List<PlayerHand>();                   // Pool of reusable hands for splits
+    public List<PlayerHand> activeSplitHands = new List<PlayerHand>();             // Hands currently in play due to splits
+    public int currentSplitHands = 0;                                              // Number of splits done this round
+    public int currentHandIndex = 0;                                               // Index of the active hand being played
 
     [Header("Betting")]
     public int currentBet = 0;
     public bool betPlaced = false;
-    public List<GameObject> placedChips = new List<GameObject>();
-
-
+    public List<GameObject> placedChips = new List<GameObject>(); // List of chips currently placed on the table
 
     private void Start() {
         playerData = SaveSystem.LoadProgress();
@@ -46,10 +46,12 @@ public class Player : MonoBehaviour {
     }
 
     private void SaveBalance() {
+        // Save the players current balance and progress
         SaveSystem.SaveProgress(playerData);
     }
 
     public void PlaceBet(Chip chip) {
+        // Places a chip on the table if player has enough money
         int chipValue = chip.chipValue;
         if (chipValue > playerData.balance) {
             Debug.Log("Not enough playerData.balance to place bet.");
@@ -65,6 +67,7 @@ public class Player : MonoBehaviour {
     }
 
     public void RemoveBet(Chip chip) {
+        // Removes a chip from the table and refunds the player
         if (placedChips.Contains(chip.gameObject)) {
             int chipValue = chip.chipValue;
             placedChips.Remove(chip.gameObject);
@@ -81,6 +84,7 @@ public class Player : MonoBehaviour {
     }
 
     private void PlaceBetOnTable(Chip chip) {
+        // Visually positions the placed chips
         if (playerHand.bettingArea == null) {
             Debug.LogError("Betting area not set up!");
             return;
@@ -104,6 +108,7 @@ public class Player : MonoBehaviour {
 
 
     private void ReorderChips() {
+        // Reorders the placed chips so the highest value chip is always at the bottom ASC order
         placedChips.Sort((a, b) => {
             Chip chipA = a.GetComponent<Chip>();
             Chip chipB = b.GetComponent<Chip>();
@@ -132,6 +137,7 @@ public class Player : MonoBehaviour {
 
 
     public void Deal() {
+        // Deal cards for a round of blackjack
         if (!betPlaced) {
             Debug.Log("You must place a bet before dealing.");
             return;
@@ -150,6 +156,7 @@ public class Player : MonoBehaviour {
     }
 
     public void Hit() {
+        // Deal a card to the players hand
         if (!dealer.isPlayerTurn) return;
         if (!betPlaced) return;
 
@@ -167,7 +174,7 @@ public class Player : MonoBehaviour {
     }
 
     public void Stand() {
-
+        // Stand the current hand and then let dealer play his hand
         PlayerHand currentHand = GetCurrentHand();
 
         // Prevent spamming Stand on the same hand
@@ -193,6 +200,7 @@ public class Player : MonoBehaviour {
     }
 
     public void DoubleDown() {
+        // Double your bet for 1 final card
         if (!dealer.isPlayerTurn) return;
         PlayerHand currentHand = GetCurrentHand();
 
@@ -212,6 +220,7 @@ public class Player : MonoBehaviour {
     }
 
     public void Split() {
+        // Split your hand into two hands if the cards are of the same value
         if (!dealer.isPlayerTurn) return;
         if (activeSplitHands.Count >= 4) return; // Max 4 split hands
 
@@ -254,12 +263,14 @@ public class Player : MonoBehaviour {
 
 
     private PlayerHand GetCurrentHand() {
+        // Gets the current active hand and returns it
         if (currentHandIndex == 0) return playerHand; // Original hand
         return activeSplitHands[currentHandIndex - 1]; // Adjust index for split hands
     }
 
 
     private void PlaceDoubleDownChips(PlayerHand hand) {
+        // Positions the double down chips behind the original bet
 
         List<GameObject> originalChips = new List<GameObject>(); // Store original chips separately
 
@@ -283,6 +294,7 @@ public class Player : MonoBehaviour {
     }
 
     private void RepositionHands() {
+        // Handles the spacing between all split hands
         int totalHands = activeSplitHands.Count + 1;
         float originalX = playerHand.transform.position.x;
         float spacing = 0.5f; // Spacing between cards
@@ -302,6 +314,7 @@ public class Player : MonoBehaviour {
     }
 
     public void ApplyHandPayout(PlayerHand hand, float multiplier) {
+        // Calculate won amount
         if (multiplier == 0f) {
             Debug.Log($"Hand lost. Bet was {hand.bet}");
         } else if (multiplier == 1f) {
@@ -317,15 +330,18 @@ public class Player : MonoBehaviour {
     }
 
     public List<PlayerHand> GetAllSplitHands() {
+        // Get how many split hands are active
         return activeSplitHands;
     }
 
     public void UpdateDoubleDownButton() {
+        // Show / Hide the double down button if it is or is not possible to double
         PlayerHand currentHand = GetCurrentHand();
         manager.ToggleDoubleDown(currentHand.cards.Count == 2 && playerData.balance >= currentHand.bet);
     }
 
     public void UpdateSplitButton() {
+        // Show / Hide the double down button if it is or is not possible to split
         PlayerHand currentHand = GetCurrentHand();
         manager.ToggleSplit(currentHand.cards.Count == 2 &&
                     currentHand.cards[0].rank == currentHand.cards[1].rank &&
@@ -333,6 +349,7 @@ public class Player : MonoBehaviour {
     }
 
     public void ResetOriginalHandPosition() {
+        // After a split reset the original hands position
         playerHand.transform.position = originalHandPosition;
     }
 
