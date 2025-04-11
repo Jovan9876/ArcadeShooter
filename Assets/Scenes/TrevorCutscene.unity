@@ -653,7 +653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613889581172005606, guid: 6e5f080711570a246b6784464ec627a2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1613889581172005606, guid: 6e5f080711570a246b6784464ec627a2, type: 3}
       propertyPath: m_LocalRotation.y
@@ -661,7 +661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1613889581172005606, guid: 6e5f080711570a246b6784464ec627a2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1613889581172005606, guid: 6e5f080711570a246b6784464ec627a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -767,13 +767,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1353,13 +1353,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1437,6 +1437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
+  cutscene: TrevorCutscene
 --- !u!4 &462828600
 Transform:
   m_ObjectHideFlags: 0
@@ -2102,13 +2103,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2307,13 +2308,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2610,7 +2611,7 @@ GameObject:
   - component: {fileID: 1079383788}
   - component: {fileID: 1079383790}
   - component: {fileID: 1079383789}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2672,7 +2673,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2903,6 +2904,8 @@ GameObject:
   - component: {fileID: 1105697565}
   - component: {fileID: 1105697564}
   - component: {fileID: 1105697563}
+  - component: {fileID: 1105697566}
+  - component: {fileID: 1105697567}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2971,6 +2974,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1105697566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105697562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 5fe3a32b05fc15146b98d9dc0906f6e4, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1105697567}
+          m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+          m_MethodName: LoadSceneBasedOnFirstPress
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: GameScene
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1105697567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105697562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b08374ea3bfde4081c00f076f26b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  cutscene: GameScene
 --- !u!1001 &1105820807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3775,6 +3822,8 @@ PlayableDirector:
     value: {fileID: 43029957}
   - key: {fileID: -247497990123761034, guid: d41c30d10d827df43b28e286a1d6848e, type: 2}
     value: {fileID: 2080531812}
+  - key: {fileID: 4047140266124701098, guid: d41c30d10d827df43b28e286a1d6848e, type: 2}
+    value: {fileID: 1105697566}
   m_ExposedReferences:
     m_References:
     - bd6e6b8d70e20e844be3023285528ce6: {fileID: 720255105}
@@ -4707,13 +4756,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4828,13 +4877,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -4949,13 +4998,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -5278,13 +5327,13 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.5058824, g: 0.039215688, b: 0.50980395, a: 1}
-  m_Intensity: 4
+  m_Intensity: 10
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
+  cutscene: TrevorCutscene
 --- !u!4 &175594056
 Transform:
   m_ObjectHideFlags: 0
@@ -812,7 +813,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 175594055}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneBasedOnFirstPress
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1014,7 +1015,7 @@ Terrain:
   m_GameObject: {fileID: 727087785}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: a2bdb0a67c8e0144a9de9dc7dc64b6e6, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: 51ac6d3582a19154da4c92a4a833eb09, type: 2}
   m_TreeDistance: 5000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -2424,7 +2425,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 175594055}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneBasedOnFirstPress
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

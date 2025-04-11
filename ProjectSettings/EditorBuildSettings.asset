@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BlackjackScene.unity
     guid: eea1e13ed10416c4badd13f65f2258cb
+  - enabled: 1
+    path: Assets/Scenes/TrevorCutscene.unity
+    guid: a492a42e14aca614ab6f50633826c858
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 230dfda522274a94fa37819def4927f5, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
