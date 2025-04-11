@@ -11256,6 +11256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1820879303}
+  helpMenu: {fileID: 0}
   cutscene: TrevorCutscene
 --- !u!4 &542829917
 Transform:
@@ -41748,7 +41749,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 542829916}
           m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-          m_MethodName: LoadScene
+          m_MethodName: LoadSceneBasedOnFirstPress
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

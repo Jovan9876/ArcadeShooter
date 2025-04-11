@@ -6,6 +6,7 @@ public class SceneLoader : MonoBehaviour
 {
 
     public GameObject pauseMenu;
+    public GameObject helpMenu;
 
     private bool hasLoaded = false;
 
@@ -64,4 +65,15 @@ public class SceneLoader : MonoBehaviour
             pauseMenu.SetActive(true);
         }
     }
+
+    public void ShowHelpMenu() {
+        if (helpMenu.activeSelf) {
+            Time.timeScale = 1f;
+            helpMenu.SetActive(false);
+        } else {
+            Time.timeScale = 0f;
+            helpMenu.SetActive(true);
+        }
+    }
+
 }
