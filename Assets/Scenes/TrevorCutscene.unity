@@ -152,24 +152,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 19
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 41.9
     OrthographicSize: 5
@@ -189,16 +178,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7771226
-    m_SourceCamera: {fileID: 1160003843}
   BlendHint: 0
-  m_Pipeline:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &3494385
 Transform:
   m_ObjectHideFlags: 0
@@ -426,24 +406,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 11
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -463,16 +432,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7771226
-    m_SourceCamera: {fileID: 1160003843}
   BlendHint: 0
-  m_Pipeline:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &124213587
 Transform:
   m_ObjectHideFlags: 0
@@ -521,24 +481,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 20
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -558,16 +507,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7771226
-    m_SourceCamera: {fileID: 1160003843}
   BlendHint: 0
-  m_Pipeline:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &133493951
 Transform:
   m_ObjectHideFlags: 0
@@ -768,24 +708,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 18
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -805,16 +734,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7771226
-    m_SourceCamera: {fileID: 1160003843}
   BlendHint: 0
-  m_Pipeline:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &234069237
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,24 +1089,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 13
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -1206,16 +1115,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7771226
-    m_SourceCamera: {fileID: 1160003843}
   BlendHint: 0
-  m_Pipeline:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &514701916
 Transform:
   m_ObjectHideFlags: 0
@@ -1404,24 +1304,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 21
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 0
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -1441,12 +1330,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1
-    m_SourceCamera: {fileID: 0}
   BlendHint: 0
-  m_Pipeline: []
 --- !u!4 &566475380
 Transform:
   m_ObjectHideFlags: 0
@@ -1495,24 +1379,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 17
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 0
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -1532,12 +1405,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1
-    m_SourceCamera: {fileID: 0}
   BlendHint: 0
-  m_Pipeline: []
 --- !u!4 &586427559
 Transform:
   m_ObjectHideFlags: 0
@@ -1721,24 +1589,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 15
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 0
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -1758,12 +1615,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1
-    m_SourceCamera: {fileID: 0}
   BlendHint: 0
-  m_Pipeline: []
 --- !u!4 &720255106
 Transform:
   m_ObjectHideFlags: 0
@@ -2613,23 +2465,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 095f6c3b9b04ea04f95c93dccb41f854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivePrefab: {fileID: 0}
-  NormalPrefab: {fileID: 0}
-  FirePrefab: {fileID: 0}
-  WaterPrefab: {fileID: 0}
-  LightningPrefab: {fileID: 0}
-  LeafPrefab: {fileID: 0}
+  projectilePrefab: {fileID: 8384888931712499722, guid: 054aac3a4a289224896770c530fd179d, type: 3}
   firePoint: {fileID: 1105820809}
-  movementJoystick: {fileID: 0}
-  aimJoystick: {fileID: 0}
+  joystick: {fileID: 0}
   attackRate: 0.5
-  moveSpeed: 10
-  rotationSpeed: 10
-  maxDistance: 20
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  damage: 20
+  projectileSpeed: 5
 --- !u!95 &1105820816
 Animator:
   serializedVersion: 7
@@ -2891,8 +2731,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160003841}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.104691856, y: -0.7652153, z: -0.12886444, w: 0.6219962}
-  m_LocalPosition: {x: 418.29443, y: 0.93164396, z: 183.29442}
+  m_LocalRotation: {x: -0.19551605, y: 0.75268054, z: -0.25626925, w: -0.5740833}
+  m_LocalPosition: {x: 590.31354, y: 77.05967, z: 349.56784}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2924,14 +2764,12 @@ MonoBehaviour:
     Style: 1
     Time: 2
     CustomCurve:
+      serializedVersion: 2
       m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
-  m_OutputCamera: {fileID: 1160003843}
-  m_TargetOverride: {fileID: 0}
-  m_LastFrameUpdated: 5
 --- !u!114 &1160003846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3167,24 +3005,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 16
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 0
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -3204,12 +3031,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1
-    m_SourceCamera: {fileID: 0}
   BlendHint: 0
-  m_Pipeline: []
 --- !u!4 &1459055320
 Transform:
   m_ObjectHideFlags: 0
@@ -4287,24 +4109,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 12
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 0
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -4324,12 +4135,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1
-    m_SourceCamera: {fileID: 0}
   BlendHint: 0
-  m_Pipeline: []
 --- !u!4 &2082208641
 Transform:
   m_ObjectHideFlags: 0
@@ -4405,24 +4211,13 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  ActivationId: 14
-  m_QueuePriority: 0
   StandbyUpdate: 2
-  m_CachedName: 
-  m_WasStarted: 1
-  m_ChildStatusUpdated: 1
-  m_ParentVcam: {fileID: 0}
-  m_CachedFollowTarget: {fileID: 0}
-  m_CachedFollowTargetVcam: {fileID: 0}
-  m_CachedLookAtTarget: {fileID: 0}
-  m_CachedLookAtTargetVcam: {fileID: 0}
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
-  <Extensions>k__BackingField: []
-  <PreviousStateIsValid>k__BackingField: 1
-  <FollowTargetChanged>k__BackingField: 0
-  <LookAtTargetChanged>k__BackingField: 0
-  Target: {TrackingTarget: {fileID: 0}, LookAtTarget: {fileID: 0}, CustomLookAtTarget: 0}
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -4442,16 +4237,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-    m_OrthoFromCamera: 0
-    m_PhysicalFromCamera: 0
-    m_AspectFromCamera: 1.7771226
-    m_SourceCamera: {fileID: 1160003843}
   BlendHint: 0
-  m_Pipeline:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!4 &2141691831
 Transform:
   m_ObjectHideFlags: 0
