@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.015
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.3773585, g: 0.3773585, b: 0.3773585, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -5580,11 +5580,9 @@ SceneRoots:
   - {fileID: 530334577}
   - {fileID: 1509731698}
   - {fileID: 1105697565}
-  - {fileID: 1133104139}
   - {fileID: 197576133}
   - {fileID: 217711188}
   - {fileID: 1084471278}
-  - {fileID: 925082014}
   - {fileID: 605316595}
   - {fileID: 1087473814}
   - {fileID: 814284787}
@@ -5603,3 +5601,5 @@ SceneRoots:
   - {fileID: 514701916}
   - {fileID: 124213587}
   - {fileID: 566475380}
+  - {fileID: 1133104139}
+  - {fileID: 925082014}
