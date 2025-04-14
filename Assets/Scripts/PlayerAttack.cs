@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Elements{
+namespace Elements
+{
     public enum AttackType
     {
         Normal,
@@ -23,13 +24,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject WaterPrefab;
     [SerializeField] private GameObject LightningPrefab;
     [SerializeField] private GameObject LeafPrefab;
-
     [SerializeField] private Transform firePoint;
-    [SerializeField] private FixedJoystick movementJoystick;
-    [SerializeField] private FixedJoystick aimJoystick;
 
     [Header("Settings")]
-    
     [SerializeField] private float attackRate = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float rotationSpeed = 10f;
@@ -45,31 +42,19 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        
+
         damageModifiers[Elements.AttackType.Normal] = 1.0f;
         damageModifiers[Elements.AttackType.Fire] = 1.0f;
         damageModifiers[Elements.AttackType.Water] = 1.0f;
         damageModifiers[Elements.AttackType.Lightning] = 1.0f;
         damageModifiers[Elements.AttackType.Leaf] = 1.0f;
-        
-        // Initialize with normal attack by default
+
         SetNormalAttack();
-
-        // Debug.Log("Damage Modifiers");
-        // Debug.Log(damageModifiers["fire"]);
-        // Debug.Log(damageModifiers["water"]);
-        // Debug.Log(damageModifiers["neutral"]);
-        // Debug.Log(damageModifiers["leaf"]);
-        // Debug.Log(damageModifiers["lightning"]);
-
     }
 
     void Update()
     {
-        //HandleMovement();
-        HandleRotation();
-
-        if (Time.time >= nextAttackTime && HasAimInput())
+        if (Time.time >= nextAttackTime)
         {
             Attack();
             nextAttackTime = Time.time + attackRate;
@@ -77,82 +62,55 @@ public class PlayerAttack : MonoBehaviour
     }
 
     // Upgrades element damage
-    public void upgradeElement(Elements.AttackType element, float modifier) {
+    public void upgradeElement(Elements.AttackType element, float modifier)
+    {
         damageModifiers[element] += modifier;
     }
 
-    public Dictionary<Elements.AttackType, float> getUpgrades(){
+    public Dictionary<Elements.AttackType, float> getUpgrades()
+    {
         return damageModifiers;
     }
 
-/*    void HandleMovement()
-    {
-        Vector3 moveDirection = new Vector3(movementJoystick.Horizontal, 0, movementJoystick.Vertical);
-        if (moveDirection.magnitude > 0)
-        {
-            // Move the character
-            characterController.Move(moveDirection.normalized * moveSpeed * Time.deltaTime);
-        }
-    }*/
-
-    void HandleRotation()
-    {
-        Vector3 aimDirection = new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical);
-        if (aimDirection.magnitude > 0)
-        {
-            // Rotate the character to face aim direction
-            Quaternion targetRotation = Quaternion.LookRotation(aimDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
-    }
-
-    // Public functions to change attack type (call these from button click events)
+    // Setters for attack types
     public void SetNormalAttack()
     {
         ActivePrefab = NormalPrefab;
-        Debug.Log("Attack type set to: Normal");
         finalDamage = damage * damageModifiers[Elements.AttackType.Normal];
     }
 
     public void SetFireAttack()
     {
         ActivePrefab = FirePrefab;
-        Debug.Log("Attack type set to: Fire");
         finalDamage = damage * damageModifiers[Elements.AttackType.Fire];
     }
 
     public void SetWaterAttack()
     {
         ActivePrefab = WaterPrefab;
-        Debug.Log("Attack type set to: Water");
         finalDamage = damage * damageModifiers[Elements.AttackType.Water];
-
     }
 
     public void SetLightningAttack()
     {
         ActivePrefab = LightningPrefab;
-        Debug.Log("Attack type set to: Lightning");
         finalDamage = damage * damageModifiers[Elements.AttackType.Lightning];
-
     }
 
     public void SetLeafAttack()
     {
         ActivePrefab = LeafPrefab;
-        Debug.Log("Attack type set to: Leaf");
         finalDamage = damage * damageModifiers[Elements.AttackType.Leaf];
-
     }
 
     void Attack()
     {
-        Vector3 direction = GetAttackDirection();
+        Vector3 direction = Quaternion.Euler(0, 90, 0) * transform.forward;
+
         if (direction == Vector3.zero) return;
 
-        GameObject projectile = Instantiate(ActivePrefab, firePoint.position, Quaternion.LookRotation(direction));
+        GameObject projectile = Instantiate(ActivePrefab, firePoint.position, Quaternion.LookRotation(direction)); ;
 
-        // Configure particle system
         var ps = projectile.GetComponent<ParticleSystem>();
         AudioScript audioScript = projectile.GetComponent<AudioScript>();
         if (ps != null)
@@ -161,7 +119,11 @@ public class PlayerAttack : MonoBehaviour
             main.startSpeed = 0;
             ps.Play();
         }
-        MasterAudio.PlaySound(audioScript.sfxName);
+
+        if (audioScript != null)
+        {
+            MasterAudio.PlaySound(audioScript.sfxName);
+        }
 
         StartCoroutine(MoveProjectile(projectile, direction));
     }
@@ -169,7 +131,6 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator MoveProjectile(GameObject projectile, Vector3 direction)
     {
         float distanceTraveled = 0f;
-        Vector3 startPosition = projectile.transform.position;
         bool hitDetected = false;
 
         AddCollisionComponents(projectile);
@@ -213,14 +174,12 @@ public class PlayerAttack : MonoBehaviour
 
     bool CheckCollision(Vector3 position, Vector3 direction)
     {
-        // Check for collisions with enemy layer only
         if (Physics.Raycast(position, direction, out RaycastHit hit, moveSpeed * Time.deltaTime, enemyLayer))
         {
-            hit.collider.GetComponent<EnemyHealth>().TakeDamage(damage);
+            hit.collider.GetComponent<EnemyHealth>()?.TakeDamage(damage);
             return true;
         }
 
-        // Alternative sphere cast
         return Physics.SphereCast(position, 0.3f, direction, out hit, moveSpeed * Time.deltaTime, enemyLayer);
     }
 
@@ -230,10 +189,11 @@ public class PlayerAttack : MonoBehaviour
         if (ps != null)
         {
             ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            Destroy(projectile, ps.main.duration);
         }
-        Destroy(projectile, ps?.main.duration ?? 0.1f);
+        else
+        {
+            Destroy(projectile, 0.1f);
+        }
     }
-
-    private bool HasAimInput() => aimJoystick.Horizontal != 0 || aimJoystick.Vertical != 0;
-    private Vector3 GetAttackDirection() => new Vector3(aimJoystick.Horizontal, 0, aimJoystick.Vertical).normalized;
 }

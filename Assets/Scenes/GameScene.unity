@@ -19917,22 +19917,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Range
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Color.g
-      value: 0.5046153
-      objectReference: {fileID: 0}
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7735849
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70b575c17a059d141a8f8eaadc96c08d, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.10000001
@@ -19992,6 +19976,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 70b575c17a059d141a8f8eaadc96c08d, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5046153
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7735849
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -20060,8 +20060,6 @@ MonoBehaviour:
   LightningPrefab: {fileID: 4125475993694304173, guid: a97030c03c711e54f9a7ad51d86af517, type: 3}
   LeafPrefab: {fileID: 5055741381309161093, guid: 8445714835b43b14c926e24fd8b90933, type: 3}
   firePoint: {fileID: 788637819}
-  movementJoystick: {fileID: 1225355172}
-  aimJoystick: {fileID: 355262677}
   attackRate: 1
   moveSpeed: 10
   rotationSpeed: 10
@@ -20088,9 +20086,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 788637822}
-  _joystick: {fileID: 1225355172}
+  _movementJoystick: {fileID: 1225355172}
+  _rotationJoystick: {fileID: 355262677}
   _animator: {fileID: 0}
   _movespeed: 5
+  _rotationSpeed: 720
 --- !u!65 &788637821
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32452,7 +32452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalRotation.x
@@ -32464,7 +32464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -32476,11 +32476,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
