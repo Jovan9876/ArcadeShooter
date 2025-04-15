@@ -21,6 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TrevorCutscene.unity
     guid: a492a42e14aca614ab6f50633826c858
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 8ddd2ce55e4b1b64f8ef573cb850bb54, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 230dfda522274a94fa37819def4927f5, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
