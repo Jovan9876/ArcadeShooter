@@ -18,9 +18,14 @@ public class PlaneScroll : MonoBehaviour
         // Scroll on z-axis
         currentPosition.z -= scrollSpeed * Time.deltaTime;
 
-        // Clamp x and z positions
+        // Teleports to beginning when end of map reached
+        if (currentPosition.z <= minZ)
+        {
+            currentPosition.z = maxZ;
+        }
+
+        // Clamp x positions
         currentPosition.x = Mathf.Clamp(currentPosition.x, minX, maxX);
-        currentPosition.z = Mathf.Clamp(currentPosition.z, minZ, maxZ);
 
         transform.position = currentPosition;
     }
