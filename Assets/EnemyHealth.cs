@@ -21,6 +21,8 @@ public class EnemyHealth : MonoBehaviour
     private float currentHealth;
     private bool isDead = false;
 
+    public int rewardAmount = 50;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -73,6 +75,10 @@ public class EnemyHealth : MonoBehaviour
         Debug.Log("Enemy died!");
 
         gameStateManager.addExp(mobExp);
+
+        PlayerData data = SaveSystem.LoadProgress();
+        data.balance += rewardAmount;
+        SaveSystem.SaveProgress(data);
 
         // Play death effect
 /*        if (deathEffect != null)
