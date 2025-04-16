@@ -21,6 +21,7 @@ public static class SaveSystem {
 [Serializable]
 public class PlayerData {
     public int balance = 500;
+    public int highScore = 0;
     public BlackjackProgress blackjackProgress = new BlackjackProgress();
 }
 

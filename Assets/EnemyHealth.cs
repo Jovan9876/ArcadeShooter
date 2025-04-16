@@ -1,11 +1,10 @@
+using TMPro;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
-{
+public class EnemyHealth : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] private float maxHealth = 10f;
 
-    //too be implemented
     [SerializeField] private float normalDamageMultiplier = 1f;
     [SerializeField] private float fireDamageMultiplier = 1.5f;
     [SerializeField] private float waterDamageMultiplier = 0.8f;
@@ -21,80 +20,68 @@ public class EnemyHealth : MonoBehaviour
     private float currentHealth;
     private bool isDead = false;
 
-    public int rewardAmount = 50;
+    public int rewardAmount = 10; 
+    public int soulAmount = 10; // 10 soul per enemy
+    public int scorePerKill = 10;
 
-    void Start()
-    {
+    void Start() {
         currentHealth = maxHealth;
         gameStateManager = GameObject.Find("GameStateManager").GetComponent<GameStateManager>();
     }
 
-
-    public void TakeDamage(float baseDamage)
-    {
+    public void TakeDamage(float baseDamage) {
         if (isDead) return;
 
         float damage = baseDamage;
         currentHealth -= damage;
 
-        // Show hit effect
-/*        if (hitEffect != null)
-        {
-            hitEffect.Play();
-        }*/
+        // Optional hit effect
+        // if (hitEffect != null) hitEffect.Play();
 
-        // Check for death
-        if (currentHealth <= 0)
-        {
+        if (currentHealth <= 0) {
             Die();
         }
     }
 
-    private float GetDamageMultiplier(AttackType attackType)
-    {
-        switch (attackType)
-        {
-            case AttackType.Fire:
-                return fireDamageMultiplier;
-            case AttackType.Water:
-                return waterDamageMultiplier;
-            case AttackType.Lightning:
-                return lightningDamageMultiplier;
-            case AttackType.Leaf:
-                return leafDamageMultiplier;
-            default:
-                return normalDamageMultiplier;
+    private float GetDamageMultiplier(AttackType attackType) {
+        switch (attackType) {
+            case AttackType.Fire: return fireDamageMultiplier;
+            case AttackType.Water: return waterDamageMultiplier;
+            case AttackType.Lightning: return lightningDamageMultiplier;
+            case AttackType.Leaf: return leafDamageMultiplier;
+            default: return normalDamageMultiplier;
         }
     }
 
-    private void Die()
-    {
+    private void Die() {
         if (isDead) return;
         isDead = true;
 
         Debug.Log("Enemy died!");
-
         gameStateManager.addExp(mobExp);
 
+        // Update round score (runtime only)
+        PlayerInfo player = FindObjectOfType<PlayerInfo>();
+        if (player != null) {
+            player.AddScore(scorePerKill);
+        }
+
+        // Update saved souls
         PlayerData data = SaveSystem.LoadProgress();
-        data.balance += rewardAmount;
+        data.balance += soulAmount;
+        if (player != null) {
+            player.AddSouls(soulAmount);
+        }
         SaveSystem.SaveProgress(data);
 
-        // Play death effect
-/*        if (deathEffect != null)
-        {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
-        }*/
-
-
+        // Optional death effect
+        // if (deathEffect != null) Instantiate(deathEffect, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }
 }
 
-
-public enum AttackType
-{
+public enum AttackType {
     Normal,
     Fire,
     Water,

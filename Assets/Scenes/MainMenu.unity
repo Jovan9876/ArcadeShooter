@@ -7005,7 +7005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.099999994, y: 5.2}
+  m_AnchoredPosition: {x: -0.099999994, y: 0.33}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &426671758
@@ -7992,11 +7992,11 @@ RectTransform:
   - {fileID: 270983573}
   m_Father: {fileID: 951456784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.9000015, y: -29.3}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 7.05, y: 17.49}
   m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &478349113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14543,6 +14543,7 @@ GameObject:
   - component: {fileID: 867018984}
   - component: {fileID: 867018983}
   - component: {fileID: 867018982}
+  - component: {fileID: 867018986}
   m_Layer: 5
   m_Name: InstructionsView
   m_TagString: Untagged
@@ -14627,8 +14628,8 @@ RectTransform:
   m_GameObject: {fileID: 867018981}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.11244012, y: 0.11244012, z: 0.11244012}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 753354845}
   - {fileID: 1918057589}
@@ -14639,6 +14640,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &867018986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867018981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 175594055}
+          m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+          m_MethodName: ShowHelpMenu
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &868619906
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23391,7 +23421,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 16.98999}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1046055841
 MonoBehaviour:
@@ -23427,12 +23457,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You are Ki, a mystical five-tailed fox, charged with the protection of
-    the enchanted forest when it is suddenly invaded by a necromancer\u2019s army.
-    You must use all elements to swiftly defeat your foes and repel the invaders.
-    \n\nMaster the Elements. Restore balance.\n\nLeft joystick - moves the player
-    by dragging\nRight Joystick - press to shoot enemies that spawn\nAvoid enemies,
-    lasers, and collect souls to play blackjack after death.\n\n"
+  m_text: "You are Ki, a mystical five-tailed fox, \ncharged with the \nprotection
+    of the enchanted forest \nwhen it is suddenly\ninvaded \nby a \nnecromancer\u2019s
+    army. \nYou must use all elements to \nswiftly defeat your \nfoes and repel the
+    invaders. \n\nMaster the Elements. \nRestore balance.\n\nLeft joystick\n- moves
+    the player by dragging\n\nRight Joystick \n- Hold in specific direction \nto
+    shoot enemies\nAvoid enemies, lasers, \nand collect souls to \nplay blackjack
+    after death.\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -25509,7 +25540,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2017284646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.027536869}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -43161,7 +43192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.1, y: 10.7}
+  m_AnchoredPosition: {x: -0.1, y: 5.9}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1900775318
@@ -43584,7 +43615,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1199157950}
   m_Direction: 2
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.97246313
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -50810,8 +50841,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 20}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0.4, y: 13.6}
+  m_SizeDelta: {x: -109.2, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2054770075
 MonoBehaviour:
@@ -50860,8 +50891,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 256
-  m_fontSizeBase: 256
+  m_fontSize: 170
+  m_fontSizeBase: 170
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

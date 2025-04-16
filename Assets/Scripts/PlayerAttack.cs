@@ -26,6 +26,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private GameObject LeafPrefab;
     [SerializeField] private Transform firePoint;
 
+    [SerializeField] private GameObject FireTailParticle;
+    [SerializeField] private GameObject NeutralTailParticle;
+    [SerializeField] private GameObject GrassTailParticle;
+    [SerializeField] private GameObject LightningTailParticle;
+    [SerializeField] private GameObject WaterTailParticle;
+
     [Header("Settings")]
     [SerializeField] private float attackRate = 0.5f;
     [SerializeField] private float moveSpeed = 10f;
@@ -50,6 +56,7 @@ public class PlayerAttack : MonoBehaviour
         damageModifiers[Elements.AttackType.Leaf] = 1.0f;
 
         SetNormalAttack();
+        ShowActiveTail("Neutral");
     }
 
     void Update()
@@ -58,6 +65,36 @@ public class PlayerAttack : MonoBehaviour
         {
             Attack();
             nextAttackTime = Time.time + attackRate;
+        }
+    }
+
+    // Hide tails
+    private void ShowActiveTail(string activeTail) {
+        FireTailParticle.SetActive(false);
+        NeutralTailParticle.SetActive(false);
+        GrassTailParticle.SetActive(false);
+        WaterTailParticle.SetActive(false);
+        LightningTailParticle.SetActive(false);
+
+        switch (activeTail) {
+            case "Fire":
+                FireTailParticle.SetActive(true);
+                break;
+            case "Neutral":
+                NeutralTailParticle.SetActive(true);
+                break;
+            case "Grass":
+                GrassTailParticle.SetActive(true);
+                break;
+            case "Water":
+                WaterTailParticle.SetActive(true);
+                break;
+            case "Lightning":
+                LightningTailParticle.SetActive(true);
+                break;
+            default:
+                Debug.LogWarning("Unknown tail: " + activeTail);
+                break;
         }
     }
 
@@ -77,30 +114,35 @@ public class PlayerAttack : MonoBehaviour
     {
         ActivePrefab = NormalPrefab;
         finalDamage = damage * damageModifiers[Elements.AttackType.Normal];
+        ShowActiveTail("Neutral");
     }
 
     public void SetFireAttack()
     {
         ActivePrefab = FirePrefab;
         finalDamage = damage * damageModifiers[Elements.AttackType.Fire];
+        ShowActiveTail("Fire");
     }
 
     public void SetWaterAttack()
     {
         ActivePrefab = WaterPrefab;
         finalDamage = damage * damageModifiers[Elements.AttackType.Water];
+        ShowActiveTail("Water");
     }
 
     public void SetLightningAttack()
     {
         ActivePrefab = LightningPrefab;
         finalDamage = damage * damageModifiers[Elements.AttackType.Lightning];
+        ShowActiveTail("Lightning");
     }
 
     public void SetLeafAttack()
     {
         ActivePrefab = LeafPrefab;
         finalDamage = damage * damageModifiers[Elements.AttackType.Leaf];
+        ShowActiveTail("Grass");
     }
 
     void Attack()

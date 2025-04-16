@@ -11711,6 +11711,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6954757686636023224, guid: a500d776b6b17c747968f4c8be4ca188, type: 3}
   m_PrefabInstance: {fileID: 289034647}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &341574471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3925174398747663935, guid: 484b95805c5a59b40b1c6acb6fef1df8, type: 3}
+  m_PrefabInstance: {fileID: 216793796}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &342460756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13197,142 +13202,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6174534228882052556, guid: 987e02319c5b60c44a06e8af7f7b2d75, type: 3}
   m_PrefabInstance: {fileID: 61178688}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &397147005
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 397147006}
-  - component: {fileID: 397147008}
-  - component: {fileID: 397147007}
-  m_Layer: 5
-  m_Name: Death
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &397147006
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397147005}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1670219983}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -106}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &397147007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397147005}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: You died
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 360d8e713c63c8b48b527ee8f0f0044b, type: 2}
-  m_sharedMaterial: {fileID: -3025789950316660227, guid: 360d8e713c63c8b48b527ee8f0f0044b, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4278190335
-  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 300
-  m_fontSizeBase: 300
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_EmojiFallbackSupport: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: -635.3588, y: -198.6491, z: -631.83105, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &397147008
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397147005}
-  m_CullTransparentMesh: 1
 --- !u!4 &407523074 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8178772241079944873, guid: 9b5260185461a5d4b97ef9cf76371d80, type: 3}
@@ -14977,8 +14846,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a683b774e6b8c9444955af3e492a9376, type: 2}
-  m_sharedMaterial: {fileID: -3473623485058370089, guid: a683b774e6b8c9444955af3e492a9376, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18343,6 +18212,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 88839769104285831, guid: c01b435f6ecd19947a34371232a520e6, type: 3}
   m_PrefabInstance: {fileID: 52563500}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &646192528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4332308549048044161, guid: 756bb4a9f783d3440a3357b2a0db3613, type: 3}
+  m_PrefabInstance: {fileID: 1024057006}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &646370837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6954757686636023224, guid: 064e933366a15244a8260ec4e4c1b5a6, type: 3}
@@ -19951,11 +19825,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1670219983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -819, y: 479}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -307.12, y: -229.97}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 1}
 --- !u!114 &733516643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25519,22 +25393,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Range
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Color.g
-      value: 0.5046153
-      objectReference: {fileID: 0}
-    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
-      propertyPath: m_Color.r
-      value: 0.7735849
-      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 70b575c17a059d141a8f8eaadc96c08d, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.10000001
@@ -25594,6 +25452,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 70b575c17a059d141a8f8eaadc96c08d, type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5046153
+      objectReference: {fileID: 0}
+    - target: {fileID: -6722085885383957590, guid: a8b6961dfebcb0149b86b5604a63aace, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7735849
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -25671,6 +25545,11 @@ MonoBehaviour:
   LightningPrefab: {fileID: 4125475993694304173, guid: a97030c03c711e54f9a7ad51d86af517, type: 3}
   LeafPrefab: {fileID: 5055741381309161093, guid: 8445714835b43b14c926e24fd8b90933, type: 3}
   firePoint: {fileID: 788637819}
+  FireTailParticle: {fileID: 646192528}
+  NeutralTailParticle: {fileID: 1308348519}
+  GrassTailParticle: {fileID: 1733572758}
+  LightningTailParticle: {fileID: 789285446}
+  WaterTailParticle: {fileID: 341574471}
   attackRate: 1
   moveSpeed: 10
   rotationSpeed: 10
@@ -25850,8 +25729,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c510bf611e701d443b591a6f5374014d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 9000
+  health: 10
   healthTMP: {fileID: 733516643}
+  timeAliveTMP: {fileID: 166280399}
+  scoreTMP: {fileID: 622128059}
+  soulsGainedTMP: {fileID: 1355301219}
   deathMessageUI: {fileID: 38966782}
   blackjack: BlackjackScene
 --- !u!114 &788637826
@@ -25912,6 +25794,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &789285446 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1255139253500608715, guid: 05fc2a69c98522f4cb93145e38678eb5, type: 3}
+  m_PrefabInstance: {fileID: 1369379305}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &791021534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36771,7 +36658,7 @@ GameObject:
   - component: {fileID: 1100337453}
   - component: {fileID: 1100337452}
   m_Layer: 5
-  m_Name: MoneyGainedText
+  m_Name: SoulsGained
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36826,8 +36713,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278231295
-  m_fontColor: {r: 1, g: 0.62911344, b: 0, a: 1}
+    rgba: 4294901844
+  m_fontColor: {r: 0.33125544, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -37027,7 +36914,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 542829916}
           m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-          m_MethodName: LoadScene
+          m_MethodName: LoadSceneBasedOnFirstPress
           m_Mode: 5
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -40830,6 +40717,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 23034513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1308348519 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6347355795119531242, guid: 9979e0d35ec787f48a929ad40be0cd8f, type: 3}
+  m_PrefabInstance: {fileID: 1388353965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1308502777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6954757686636023224, guid: 77dc24e76bb18474b9d0656e52c875c3, type: 3}
@@ -41681,7 +41573,7 @@ GameObject:
   - component: {fileID: 1355301220}
   - component: {fileID: 1355301219}
   m_Layer: 5
-  m_Name: MoneyGainedValue
+  m_Name: SoulsGainedValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41735,8 +41627,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278231295
-  m_fontColor: {r: 1, g: 0.62911344, b: 0, a: 1}
+    rgba: 4294901845
+  m_fontColor: {r: 0.33333334, g: 0, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -48654,7 +48546,6 @@ RectTransform:
   - {fileID: 1882712707}
   - {fileID: 2106121504}
   - {fileID: 733516642}
-  - {fileID: 397147006}
   - {fileID: 1248087207}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49913,6 +49804,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 488958719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1733572758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3644378111659325251, guid: 4412e473addf0d04da1ff5c482c91d5e, type: 3}
+  m_PrefabInstance: {fileID: 484566385}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1736116279
 PrefabInstance:
   m_ObjectHideFlags: 0
