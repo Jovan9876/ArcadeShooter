@@ -64,93 +64,13 @@ public class OptionSelector : MonoBehaviour
         TextMeshProUGUI button5Description = option5Button.GetComponentInChildren<TextMeshProUGUI>();
 
         button1Description.text = currentValues[Elements.AttackType.Normal]     .ToString();
-        button2Description.text = currentValues[Elements.AttackType.Fire]    .ToString();
-        button3Description.text = currentValues[Elements.AttackType.Water]  .ToString();
-        button4Description.text = currentValues[Elements.AttackType.Lightning].ToString();
-        button5Description.text = currentValues[Elements.AttackType.Leaf]     .ToString();
+        button2Description.text = currentValues[Elements.AttackType.Fire]       .ToString();
+        button3Description.text = currentValues[Elements.AttackType.Water]      .ToString();
+        button4Description.text = currentValues[Elements.AttackType.Lightning]  .ToString();
+        button5Description.text = currentValues[Elements.AttackType.Leaf]       .ToString();
         
 
     }
-
-    // private void ChooseImages()
-    // {
-    //     Image button1Image = option1Button.GetComponent<Image>();
-    //     Image button2Image = option2Button.GetComponent<Image>();
-    //     Image button3Image = option3Button.GetComponent<Image>();
-
-    //     TextMeshProUGUI button1Description = option1Button.GetComponentInChildren<TextMeshProUGUI>();
-    //     TextMeshProUGUI button2Description = option2Button.GetComponentInChildren<TextMeshProUGUI>();
-    //     TextMeshProUGUI button3Description = option3Button.GetComponentInChildren<TextMeshProUGUI>();
-
-    //     if (!stateManager.duoLevel)
-    //     {
-    //         newCombos = GetRandomCombos(comboList.soloComboList);
-    //     }
-    //     else
-    //     {
-    //         newCombos = GetRandomCombos(comboList.duoComboList);
-    //     }
-
-    //     button1Image.sprite = newCombos[0].GetComboIcon();
-    //     button2Image.sprite = newCombos[1].GetComboIcon();
-    //     button3Image.sprite = newCombos[2].GetComboIcon();
-
-    //     UnityEngine.Debug.Log(newCombos[0].GetDescription());
-
-    //     button1Description.text = newCombos[0].GetDescription();
-    //     button2Description.text = newCombos[1].GetDescription();
-    //     button3Description.text = newCombos[2].GetDescription();
-    // }
-
-    // private List<Combo> GetRandomCombos(List<Combo> typeList)
-    // {
-    //     List<Combo> unlearnedCombos = new List<Combo>();
-
-    //     foreach (Combo combo in typeList) 
-    //     {
-    //         if (stateManager.isPlayer1Level && !combo.GetLearnedP1())
-    //         {
-    //             unlearnedCombos.Add(combo);
-    //         }
-    //         else if (!stateManager.isPlayer1Level && !combo.GetLearnedP2())
-    //         {
-    //             unlearnedCombos.Add(combo);
-    //         }
-    //     }
-
-    //     UnityEngine.Debug.Log(unlearnedCombos.Count);
-
-    //     // Make a list of numbers to draw from so no duplicates
-    //     List<int> numbers = new List<int>();
-    //     for (int i = 0; i < unlearnedCombos.Count; i++)
-    //     {
-    //         numbers.Add(i);
-    //     }
-
-    //     // Shuffle the list
-    //     Shuffle(numbers);
-
-    //     List<Combo> randomCombos = new List<Combo>();
-
-    //     for (int i = 0; i < Mathf.Min(3, unlearnedCombos.Count); i++)
-    //     {
-    //         randomCombos.Add(unlearnedCombos[numbers[i]]);
-    //     }
-
-    //     // Fill remaining slots with dummy combos
-    //     while (randomCombos.Count < 3)
-    //     {
-    //         randomCombos.Add(CreateDummyCombo());
-    //     }
-
-    //     return randomCombos;
-    // }
-
-    // private Combo CreateDummyCombo()
-    // {
-    //     Combo dummy = new Combo(ComboType.Solo, new List<KeyCode>(), "No Combo", Resources.Load<Sprite>("Skill Icons/noSkill"), "No combo available", true);
-    //     return dummy;
-    // }
 
     private void Shuffle(List<int> list)
     {
