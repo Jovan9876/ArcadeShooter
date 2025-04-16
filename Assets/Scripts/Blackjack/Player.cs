@@ -209,7 +209,7 @@ public class Player : MonoBehaviour {
             currentBet += currentHand.bet;
             currentHand.IncrementBet(currentHand.bet); // Double the bet
 
-            CommitGamble(currentHand.bet);
+            CommitGamble(currentHand.bet / 2);
 
             SaveBalance();
 

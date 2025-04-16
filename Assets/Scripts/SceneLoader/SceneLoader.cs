@@ -2,8 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour
-{
+public class SceneLoader : MonoBehaviour {
+    public GameObject FireParticle;
+    public GameObject WaterParticle;
+    public GameObject GrassParticle;
+    public GameObject NeutralParticle;
+    public GameObject ElectricParticle;
 
     public GameObject pauseMenu;
     public GameObject helpMenu;
@@ -12,57 +16,46 @@ public class SceneLoader : MonoBehaviour
 
     public string cutscene = "TrevorCutscene";
 
-    private void Start()
-    {
+    private void Start() {
         Application.targetFrameRate = 60;
         Time.timeScale = 1f;
 
-        if (pauseMenu != null)
-        {
+        if (pauseMenu != null) {
             pauseMenu.SetActive(false);
         }
     }
 
-    public void LoadSceneBasedOnFirstPress(string gameScene)
-    {
-        if (!hasLoaded && gameScene == "GameScene")
-        {
+    public void LoadSceneBasedOnFirstPress(string gameScene) {
+        if (!hasLoaded && gameScene == "GameScene") {
             hasLoaded = true;
             StartCoroutine(LoadSceneAsync(cutscene));
-        }
-        else
-        {
+        } else {
             StartCoroutine(LoadSceneAsync(gameScene));
         }
     }
 
-    private IEnumerator LoadSceneAsync(string newScene)
-    {
+    private IEnumerator LoadSceneAsync(string newScene) {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newScene, LoadSceneMode.Single);
 
-        if (asyncLoad == null)
-        {
+        if (asyncLoad == null) {
             Debug.LogError("Scene " + newScene + " not found.");
             yield break;
         }
 
-        while (!asyncLoad.isDone)
-        {
+        while (!asyncLoad.isDone) {
             yield return null;
         }
     }
 
-    public void ShowPauseMenu()
-    {
-        if (pauseMenu.activeSelf)
-        {
+    public void ShowPauseMenu() {
+        if (pauseMenu.activeSelf) {
             Time.timeScale = 1f;
             pauseMenu.SetActive(false);
-        }
-        else
-        {
+
+        } else {
             Time.timeScale = 0f;
             pauseMenu.SetActive(true);
+
         }
     }
 
@@ -70,9 +63,23 @@ public class SceneLoader : MonoBehaviour
         if (helpMenu.activeSelf) {
             Time.timeScale = 1f;
             helpMenu.SetActive(false);
+            if (FireParticle != null) {
+                FireParticle.SetActive(true);
+                WaterParticle.SetActive(true);
+                ElectricParticle.SetActive(true);
+                NeutralParticle.SetActive(true);
+                GrassParticle.SetActive(true);
+            }
         } else {
             Time.timeScale = 0f;
             helpMenu.SetActive(true);
+            if (FireParticle != null) {
+                FireParticle.SetActive(false);
+                WaterParticle.SetActive(false);
+                ElectricParticle.SetActive(false);
+                NeutralParticle.SetActive(false);
+                GrassParticle.SetActive(false);
+            }
         }
     }
 
