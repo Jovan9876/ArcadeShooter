@@ -3,11 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
-    public GameObject FireParticle;
-    public GameObject WaterParticle;
-    public GameObject GrassParticle;
-    public GameObject NeutralParticle;
-    public GameObject ElectricParticle;
+    public GameObject foxModel;
 
     public GameObject pauseMenu;
     public GameObject helpMenu;
@@ -63,22 +59,14 @@ public class SceneLoader : MonoBehaviour {
         if (helpMenu.activeSelf) {
             Time.timeScale = 1f;
             helpMenu.SetActive(false);
-            if (FireParticle != null) {
-                FireParticle.SetActive(true);
-                WaterParticle.SetActive(true);
-                ElectricParticle.SetActive(true);
-                NeutralParticle.SetActive(true);
-                GrassParticle.SetActive(true);
+            if (foxModel != null) {
+                foxModel.SetActive(true);
             }
         } else {
             Time.timeScale = 0f;
             helpMenu.SetActive(true);
-            if (FireParticle != null) {
-                FireParticle.SetActive(false);
-                WaterParticle.SetActive(false);
-                ElectricParticle.SetActive(false);
-                NeutralParticle.SetActive(false);
-                GrassParticle.SetActive(false);
+            if (foxModel != null) {
+                foxModel.SetActive(false);
             }
         }
     }
